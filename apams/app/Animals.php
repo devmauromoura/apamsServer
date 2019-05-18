@@ -4,7 +4,7 @@ namespace ApamsServer;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Animais extends Model
+class Animals extends Model
 {
-    protected $table = "animais";
+    protected $table = "animals";
 }

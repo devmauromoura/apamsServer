@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAnimaisGalleryTable extends Migration
+class CreateAnimalsGalleryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAnimaisGalleryTable extends Migration
      */
     public function up()
     {
-        Schema::create('animais_gallery', function (Blueprint $table) {
+        Schema::create('animals_gallery', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('idAnimal');
             $table->string('galleryUrl');
@@ -29,6 +29,6 @@ class CreateAnimaisGalleryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('animais_gallery');
+        Schema::dropIfExists('animals_gallery');
     }
 }
