@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('cellphone');
             $table->string('avatarUrl');
-            $table->boolen('activeAccount')->default(0);
-            $table->boolen('typeAccount')->default(0);
+            $table->boolean('activeAccount')->default(0);
+            $table->boolean('typeAccount')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
