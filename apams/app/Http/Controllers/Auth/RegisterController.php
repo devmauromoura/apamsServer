@@ -50,18 +50,27 @@ class RegisterController extends Controller
     protected function create(Request $data)
     {   
         if(User::where('email', $data['email'])->exists()){
-            return response()->json(['return'=>'usuario ja cadastrado'],403);
+            return response()->json(['return'=>'email ja cadastrado'],403);
         }
         else{
             $register = new User;
             $register->name = $data['name'];
             $register->email = $data['email'];
-            $register->password = Hash::make($data['password']);
-            $register->cellphone = $data['cellphone'];
+            //$register->password = Hash::make($data['password']); //Inserir cadastramento de senha após confirmação no e-mail. 
+            //$register->cellphone = $data['cellphone']; //Inserir checagem de telefone ao logar. 
             $register->typeAccount = $data['typeAccount'];
             $register->save();
 
-            return response()->json(['return'=>'cadastro realizado com sucesso'],200);
+            return response()->json(['return'=>'cadastro realizado com sucesso'],201);
         }
     }
+
+    protected function savepass(Request $request, $id){
+        $user = User::find($id);
+        $user->password = Hash::make($request['password']);
+        $user->save();
+
+        return response()->json(['return'=>'senha cadastrada com sucesso'], 200);
+    }
+
 }
