@@ -4,6 +4,9 @@ namespace ApamsServer\Http\Controllers\Auth;
 
 use ApamsServer\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use ApamsServer\User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -37,7 +40,14 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function loginApi(){
-        return 'Teste';
+    public function loginapi(Request $request){
+        if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
+            $user = Auth::user();
+            $token['token'] =  $user->createToken('token'.$user->id)->accessToken; 
+            
+            return response()->json(['return' => 'login efetuado com sucesso', 'token' => $token,'cellphone' => $user->cellphone], 200);
+        }else{
+            return response()->json(['return' => 'verifique suas credenciais', 'token' => $token], 401);
+        }
     }
 }
