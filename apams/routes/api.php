@@ -13,15 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('/register', 'Auth\RegisterController@create'); //Cadastrar Usuário
-Route::post('/active/user/{id}', 'Auth\RegisterController@activeaccount'); // Ativar Cadastro
+Route::get('/active/user/{id}', 'Auth\RegisterController@activeaccount'); // Ativar Cadastro
 
 Route::post('/login','Auth\LoginController@loginapi');
 
 Route::group(['middleware' => 'auth:api'], function(){
-
+    Route::prefix('/user/profile')->group(function(){
+        Route::get('/show', function(){
+            return Auth::user();
+        } );
+        Route::post('/update', 'UserController@updateUser');
+    });
 });

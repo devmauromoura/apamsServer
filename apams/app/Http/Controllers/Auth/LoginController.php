@@ -48,6 +48,7 @@ class LoginController extends Controller
             return response()->json(['return' => 'Login efetuado com sucesso', 'token' => $token,'cellphone' => $user->cellphone], 200);
         }else{
             return response()->json(['return' => 'Falha, verifique suas credenciais e tente novamente.'], 401);
+            //return response()->json(['return'=> $request->all()]);
         }
     }
 }
