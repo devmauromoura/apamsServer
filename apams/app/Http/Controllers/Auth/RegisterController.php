@@ -50,7 +50,7 @@ class RegisterController extends Controller
     protected function create(Request $data)
     {   
         if(User::where('email', $data['email'])->exists()){
-            return response()->json(['return'=>'email ja cadastrado'],403);
+            return response()->json(['return'=>'Email ja cadastrado'],403);
         }
         else{
             $register = new User;
@@ -61,19 +61,18 @@ class RegisterController extends Controller
             $register->typeAccount = $data['typeAccount'];
             $register->save();
 
-            return response()->json(['return'=>'cadastro realizado com sucesso, consulte seu email'],201);
+            return response()->json(['return'=>'Cadastro realizado com sucesso. Ative seu cadastro pelo link encaminhado no email.'],201);
         }
     }
 
-    protected function savepass(Request $request, $id){
+    protected function activeaccount($id){
         $user = User::find($id);
-        $user->password = Hash::make($request['password']);
         $user->activeAccount = 1; 
         $user->save();
 
         //Enviar e-mail de confirmação.
 
-        return response()->json(['return'=>'senha cadastrada com sucesso'], 200);
+        return response()->json(['return'=>'Cadastro ativado com sucesso.'], 200);
     }
 
 }

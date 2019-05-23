@@ -45,9 +45,9 @@ class LoginController extends Controller
             $user = Auth::user();
             $token['token'] =  $user->createToken('token'.$user->id)->accessToken; 
             
-            return response()->json(['return' => 'login efetuado com sucesso', 'token' => $token,'cellphone' => $user->cellphone], 200);
+            return response()->json(['return' => 'Login efetuado com sucesso', 'token' => $token,'cellphone' => $user->cellphone], 200);
         }else{
-            return response()->json(['return' => 'verifique suas credenciais', 'token' => $token], 401);
+            return response()->json(['return' => 'Falha, verifique suas credenciais e tente novamente.'], 401);
         }
     }
 }

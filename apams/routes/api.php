@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/register', 'Auth\RegisterController@create'); //Cadastrar Usuário
-Route::post('/register/password/{id}', 'Auth\RegisterController@savepass'); // Aplicar senha usuário
+Route::post('/active/user/{id}', 'Auth\RegisterController@activeaccount'); // Ativar Cadastro
 
 Route::post('/login','Auth\LoginController@loginapi');
 
