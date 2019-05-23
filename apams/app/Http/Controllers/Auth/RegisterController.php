@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use ApamsServer\Http\Requests\RegisterUser;
 
 class RegisterController extends Controller
 {
@@ -47,7 +48,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \ApamsServer\User
      */
-    protected function create(Request $data)
+    protected function create(RegisterUser $data)
     {   
         if(User::where('email', $data['email'])->exists()){
             return response()->json(['return'=>'Email ja cadastrado'],403);
