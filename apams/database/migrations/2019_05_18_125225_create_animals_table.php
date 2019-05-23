@@ -16,9 +16,10 @@ class CreateAnimalsTable extends Migration
         Schema::create('animals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('size');
-            $table->string('description');
-            $table->string('avatarUrl');
+            $table->string('size')->nullable();
+            $table->string('type')->nullable();
+            $table->longText('description');
+            $table->string('avatarUrl')->default('exampleUrl');
             $table->timestamps();
         });
     }
