@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use ApamsServer\Http\Requests\RegisterUser;
+use Illuminate\Support\Facades\View;
 
 class RegisterController extends Controller
 {
@@ -42,13 +43,19 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function createView(){
+        return View::make('Auth\register');
+    }
+
+
+
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
      * @return \ApamsServer\User
      */
-    protected function create(RegisterUser $data)
+    protected function createWeb(RegisterUser $data)
     {   
         if(User::where('email', $data['email'])->exists()){
             return response()->json(['return'=>'Email ja cadastrado'],403);
@@ -60,6 +67,24 @@ class RegisterController extends Controller
             $register->password = Hash::make($data['password']);
             //$register->cellphone = $data['cellphone']; //Inserir checagem de telefone ao logar. 
             $register->typeAccount = $data['typeAccount'];
+            $register->save();
+
+            return response()->json(['return'=>'Cadastro realizado com sucesso. Ative seu cadastro pelo link encaminhado no email.'],201);
+        }
+    }
+
+    protected function createApi(RegisterUser $data)
+    {   
+        if(User::where('email', $data['email'])->exists()){
+            return response()->json(['return'=>'Email ja cadastrado'],403);
+        }
+        else{
+            $register = new User;
+            $register->name = $data['name'];
+            $register->email = $data['email'];
+            $register->password = Hash::make($data['password']);
+            //$register->cellphone = $data['cellphone']; //Inserir checagem de telefone ao logar. 
+            $register->typeAccount = 0;
             $register->save();
 
             return response()->json(['return'=>'Cadastro realizado com sucesso. Ative seu cadastro pelo link encaminhado no email.'],201);

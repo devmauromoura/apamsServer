@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/register', 'Auth\RegisterController@create'); //Cadastrar Usuário
+Route::post('/register', 'Auth\RegisterController@createApi'); //Cadastrar Usuário
 Route::get('/active/user/{id}', 'Auth\RegisterController@activeaccount'); // Ativar Cadastro
 
 Route::post('/login','Auth\LoginController@loginapi');

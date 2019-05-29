@@ -6,6 +6,7 @@ use ApamsServer\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use ApamsServer\User;
+use Illuminate\Support\Facades\View;
 use Auth;
 
 class LoginController extends Controller
@@ -40,7 +41,25 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function loginapi(Request $request){
+    public function index(){
+        if(Auth::check()){
+            return redirect('home');
+        }else{
+            return View::make('');    
+        }
+    }
+
+    protected function login(Request $request){
+    
+                $registerdate = $request->all();
+                if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
+                    return "Logado";
+                }else{
+                    return "Usuario/Senha incorretos, tente novamente";
+                    }
+    }
+
+    protected function loginapi(Request $request){
         if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
             $user = Auth::user();
             $token['token'] =  $user->createToken('token'.$user->id)->accessToken; 
