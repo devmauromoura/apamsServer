@@ -16,8 +16,9 @@ class CreateAnimalsTable extends Migration
         Schema::create('animals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('size')->nullable();
-            $table->string('type')->nullable();
+            $table->string('size')->nullable(); // P - Pequeno    M - Médio   G - Grande
+            $table->string('type')->nullable();  // 1 - Gato  2 - Cachorro   3 - Outro
+            $table->string('adopted')->default('0'); // 0 - Aguardando adoção   1-Em processo de adoção   2-Adotado
             $table->longText('description');
             $table->string('avatarUrl')->default('exampleUrl');
             $table->timestamps();

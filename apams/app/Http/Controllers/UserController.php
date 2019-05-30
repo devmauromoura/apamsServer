@@ -9,6 +9,10 @@ use Hash;
 
 class UserController extends Controller
 {
+    protected function show(){
+        return User::all();
+    }
+
     protected function updateUser(Request $request){
         $newData = $request->all();
         $updateUser = User::find(Auth::user()->id);

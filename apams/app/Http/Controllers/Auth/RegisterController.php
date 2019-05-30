@@ -43,51 +43,40 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function createView(){
-        return View::make('Auth\register');
-    }
-
-
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \ApamsServer\User
-     */
-    protected function createWeb(RegisterUser $data)
-    {   
-        if(User::where('email', $data['email'])->exists()){
-            return response()->json(['return'=>'Email ja cadastrado'],403);
+    protected function register(Request $request){
+        $data = $request->all();
+        $method = $request->method();
+        if($method == 'POST'){
+            $validatedData = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'typeAccount' => 'required',
+            ]);
+            if ($validatedData->fails()) {
+                return "Envie os dados corretamente!";
+            }
+            else {
+                if(User::where('email', $data['email'])->exists()){
+                    return "Usuário já cadastrado";
+                }
+                else {
+                    $registerUser = new User;
+                    $registerUser->name = $data['name'];
+                    $registerUser->email = $data['email'];
+                    $registerUser->password = Hash::make($data['password']);
+                    $registerUser->typeAccount = $data['typeAccount'];
+                    $registerUser->save();
+                    
+                    return redirect()->back()->with('msg', 'cadastro realizado com sucesso');
+                }
+            }
+        }
+        elseif ($method == 'GET') {
+            return view('Auth.register');
         }
         else{
-            $register = new User;
-            $register->name = $data['name'];
-            $register->email = $data['email'];
-            $register->password = Hash::make($data['password']);
-            //$register->cellphone = $data['cellphone']; //Inserir checagem de telefone ao logar. 
-            $register->typeAccount = $data['typeAccount'];
-            $register->save();
-
-            return response()->json(['return'=>'Cadastro realizado com sucesso. Ative seu cadastro pelo link encaminhado no email.'],201);
-        }
-    }
-
-    protected function createApi(RegisterUser $data)
-    {   
-        if(User::where('email', $data['email'])->exists()){
-            return response()->json(['return'=>'Email ja cadastrado'],403);
-        }
-        else{
-            $register = new User;
-            $register->name = $data['name'];
-            $register->email = $data['email'];
-            $register->password = Hash::make($data['password']);
-            //$register->cellphone = $data['cellphone']; //Inserir checagem de telefone ao logar. 
-            $register->typeAccount = 0;
-            $register->save();
-
-            return response()->json(['return'=>'Cadastro realizado com sucesso. Ative seu cadastro pelo link encaminhado no email.'],201);
+            return "Method invalido!";
         }
     }
 
@@ -101,4 +90,20 @@ class RegisterController extends Controller
         return response()->json(['return'=>'Cadastro ativado com sucesso.'], 200);
     }
 
+    protected function registerApi(Request $data)
+    {   
+        if(User::where('email', $data['email'])->exists()){
+            return response()->json(['return'=>'usuario ja cadastrado'],403);
+        }
+        else{
+            $register = new User;
+            $register->name = $data['name'];
+            $register->email = $data['email'];
+            $register->password = Hash::make($data['password']);
+            $register->cellphone = $data['cellphone'];
+            $register->typeAccount = $data['typeAccount'];
+            $register->save();
+            return response()->json(['return'=>'cadastro realizado com sucesso'],200);
+        }
+    }
 }

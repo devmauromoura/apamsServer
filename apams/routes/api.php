@@ -13,8 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/register', 'Auth\RegisterController@createApi'); //Cadastrar Usuário
-Route::get('/active/user/{id}', 'Auth\RegisterController@activeaccount'); // Ativar Cadastro
+Route::post('/register', 'Auth\RegisterController@registerApi'); //Cadastrar Usuário
 
 Route::post('/login','Auth\LoginController@loginapi');
 
@@ -27,8 +26,5 @@ Route::group(['middleware' => 'auth:api'], function(){
     });
     Route::prefix('/animals')->group(function(){
         Route::get('/show','AnimalsController@show');
-        Route::post('/register','AnimalsController@register');
-        Route::post('/update','AnimalsController@update');
-        Route::post('/delete','AnimalsController@delete');
     });
 });
