@@ -23,8 +23,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::prefix('/animals')->group(function(){
         Route::get('/','AnimalsController@showWeb');
         Route::match(['get', 'post'], '/register', 'AnimalsController@registerWeb');
-        Route::post('/register', 'AnimalsController@registerWeb');
         Route::post('/update', 'AnimalsController@registerWeb');
         Route::post('/delete', 'AnimalsController@registerWeb');
+    });
+    
+    Route::prefix('/posts')->group(function(){
+        Route::get('/','PostController@show');
+        Route::match(['get', 'post'], '/create', 'PostController@create');
+        Route::post('/update','PostController@update');
+        Route::post('/delete','PostController@delete');
     });
 });
