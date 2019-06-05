@@ -30,7 +30,7 @@ class AnimalsController extends Controller
             return redirect()->back();
         }
         if($request->isMethod('get')){
-            return View::make('registerUser');
+            return View::make('registerAnimal');
         }
     }
 

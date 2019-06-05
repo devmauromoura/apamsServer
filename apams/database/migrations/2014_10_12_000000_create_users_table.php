@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Hash;
+use ApamsServer\User;
 
 class CreateUsersTable extends Migration
 {
@@ -26,6 +28,16 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        $admin = new User;
+        $admin->name = "Administrador Apams";
+        $admin->email = "admin@apams.com.br";
+        $admin->password =  Hash::make("159357ads@");
+        $admin->cellphone = "6666666666";
+        $admin->avatarUrl = "apams";
+        $admin->activeAccount = 1;
+        $admin->typeAccount = 2;
+        $admin->save();
     }
 
     /**

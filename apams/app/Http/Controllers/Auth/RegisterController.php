@@ -40,12 +40,13 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        //$this->middleware('guest');
     }
 
-    protected function register(Request $request){
+    public function register(Request $request){
         $data = $request->all();
         $method = $request->method();
+        
         if($method == 'POST'){
             $validatedData = Validator::make($request->all(), [
                 'name' => 'required',
