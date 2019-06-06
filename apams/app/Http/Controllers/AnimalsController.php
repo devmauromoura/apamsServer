@@ -7,15 +7,15 @@ use ApamsServer\Animals;
 use Auth;
 class AnimalsController extends Controller
 {
-    
+
         //###################### FUNCTIONS 4 WEB ROUTES ######################
-    
+
     protected function showWeb(){
         $animals = Animals::all();
-        
+
         return View::make('animais', compact('animais'));
     }
-    
+
     protected function registerWeb(Request $request){
         $method = $request->method();
 
@@ -25,7 +25,7 @@ class AnimalsController extends Controller
             $newAnimal->name = $dataAnimal['name'];
             $newAnimal->size = $dataAnimal['size'];
             $newAnimal->type = $dataAnimal['type'];
-            $newAnimal->description = $dataAnimal['description']; 
+            $newAnimal->description = $dataAnimal['description'];
             $newAnimal->save();
             return redirect()->back();
         }
@@ -47,13 +47,18 @@ class AnimalsController extends Controller
             $dataUpdate->save();
 
             return View::make('Animals.list');
-        }else if{
+        }elseif($request->isMethod('get')){
             return View::make('Animals.list');
-        }        
+        }
     }
 
-    protected function deleteWeb(){
-        
+
+    protected function deleteWeb(Request $request){
+        $animalID = $request['id'];
+        $animalDelete = Animals::find($animalID);
+        $animalDelete->delete();
+
+        return "Animal Removido!";
     }
 
 

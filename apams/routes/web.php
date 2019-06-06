@@ -23,10 +23,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::prefix('/animals')->group(function(){
         Route::get('/','AnimalsController@showWeb');
         Route::match(['get', 'post'], '/register', 'AnimalsController@registerWeb');
-        Route::post('/update', 'AnimalsController@registerWeb');
+        Route::match(['get', 'post'],'/update', 'AnimalsController@updateWeb');
         Route::post('/delete', 'AnimalsController@registerWeb');
     });
-    
+
     Route::prefix('/posts')->group(function(){
         Route::get('/','PostController@show');
         Route::match(['get', 'post'], '/create', 'PostController@create');
