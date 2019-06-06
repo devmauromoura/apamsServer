@@ -46,4 +46,12 @@ class UserController extends Controller
         return response()->json(['return'=>'Cadastro atualizado com sucesso'], 200);
         //return response()->json(['return' => Auth::user()->id]);
     }
+
+    protected function delete(Request $request){
+        $userId = $request['idUser'];
+        $userDelete = User::find($userId);
+        $userDelete->delete();
+
+        return View::make('User.list');
+    }
 }

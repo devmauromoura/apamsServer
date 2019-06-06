@@ -34,8 +34,22 @@ class AnimalsController extends Controller
         }
     }
 
-    protected function updateWeb(){
-        
+    protected function updateWeb(Request $request){
+        $method = $request->method();
+
+        if($request->isMethod('post')){
+            $animalUpdate = $request->all();
+            $dataUpdate = Animals::find($animalUpdate['id']);
+            $dataUpdate->name = $animalUpdate['name'];
+            $dataUpdate->size = $animalUpdate['size'];
+            $dataUpdate->type = $animalUpdate['type'];
+            $dataUpdate->description = $animalUpdate['description'];
+            $dataUpdate->save();
+
+            return View::make('Animals.list');
+        }else if{
+            return View::make('Animals.list');
+        }        
     }
 
     protected function deleteWeb(){
