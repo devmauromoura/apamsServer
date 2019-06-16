@@ -18,11 +18,11 @@ class UserController extends Controller
 
         if($method == 'POST'){
             $newData = $request->all();
-            $updateUser = User::find($request['idUser']);
-            $updateUser->name = $request['name'];
-            $updateUser->email = $request['email'];
-            $updateUser->password = Hash::make($request['password']);
-            $updateUser->cellphone = $request['cellphone'];
+            $updateUser = User::find($newData['idUser']);
+            $updateUser->name = $newData['name'];
+            $updateUser->email = $newData['email'];
+            $updateUser->password = Hash::make($newData['password']);
+            $updateUser->cellphone = $newData['cellphone'];
             $updateUser->save();
 
             return "update realizado";

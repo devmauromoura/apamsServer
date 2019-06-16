@@ -40,7 +40,7 @@ class AnimalsController extends Controller
             $dataUpdate->description = $animalUpdate['description'];
             $dataUpdate->save();
 
-            return View::make('Animals.list');
+            return redirect('configuracoes');
         }elseif($request->isMethod('get')){
             return View::make('Animals.list');
         }

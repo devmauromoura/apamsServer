@@ -259,18 +259,19 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="" method="" id="editarAnimal">
+          <form action="/animais/update" method="POST" id="editarAnimal">
+          @csrf
             <div class="form-group" id="idModalEditarAnimal">
               <label>ID</label>
-              <input type="text" class="form-control" id="idAnimal" placeholder="Nome do animal">
+              <input type="text" class="form-control" id="idAnimal" name="id" placeholder="Nome do animal">
             </div>
             <div class="form-group">
               <label>Nome</label>
-              <input type="text" class="form-control" name="nameAnimal" id="nameAnimal" placeholder="Nome do animal">
+              <input type="text" class="form-control" name="name" id="nameAnimal" placeholder="Nome do animal">
             </div>
             <div class="form-group">
               <label>Porte</label>
-              <select class="form-control" name="porteAnimal" id="porteAnimal">
+              <select class="form-control" name="size" id="porteAnimal">
                 <option selected disabled>Ex: Grande, Medio ou Pequeno</option>
                 <option>Grande</option>
                 <option>Médio</option>
@@ -279,7 +280,7 @@
             </div>
             <div class="form-group">
               <label>Tipo</label>
-              <select class="form-control" name="typeAnimal" id="typeAnimal">
+              <select class="form-control" name="type" id="typeAnimal">
                 <option selected disabled>Ex: Cachorro, Gato ou Outro</option>
                 <option>Cachorro</option>
                 <option>Gato</option>
@@ -288,7 +289,7 @@
             </div>
             <div class="form-group">
               <label>Processo de adoção</label>
-              <select class="form-control" name="adoptedAnimal" id="adoptedAnimal">
+              <select class="form-control" name="adopted" id="adoptedAnimal">
                 <option selected disabled>Ex: Adotado, Aguardando ou Processo</option>
                 <option>Adotado</option>
                 <option>Aguardando</option>
@@ -301,7 +302,7 @@
             </div>
             <div class="form-group">
               <label for="description">Descrição</label>
-              <textarea class="form-control" name="descriptionAnimal" id="descriptionAnimal"
+              <textarea class="form-control" name="description" id="descriptionAnimal"
                 placeholder="Insira uma descrição sobre o animal..." rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-block btn-modal">Salvar</button>
@@ -342,36 +343,32 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="" method="" id="editarUsuario">
+          <form action="/users/update" method="POST" id="editarUsuario">
+            @csrf
             <div class="form-group" id="idModalEditarProfile">
               <label>ID</label>
-              <input type="text" class="form-control" id="idProfile">
+              <input type="text" class="form-control" name="id" id="idProfile">
             </div>
             <div class="form-group">
               <label>Nome</label>
-              <input type="text" class="form-control" name="nomeProfile" id="nomeProfile" placeholder="Nome do usuário">
+              <input type="text" class="form-control" name="name" id="nomeProfile" placeholder="Nome do usuário">
             </div>
             <div class="form-group">
               <label>E-mail</label>
-              <input type="email" class="form-control" name="mailProfile" id="mailProfile"
+              <input type="email" class="form-control" name="email" id="mailProfile"
                 placeholder="E-mail do usuário">
             </div>
             <div class="form-group">
-              <label>Senha</label>
-              <input type="text" class="form-control" name="passProfile" id="passProfile"
-                placeholder="Senha do usuário">
-            </div>
-            <div class="form-group">
               <label>Celular</label>
-              <input type="text" class="form-control celNum" id="celProfile" placeholder="(xx) xxxxx-xxxx">
+              <input type="text" class="form-control celNum" name="cellphone" id="celProfile" placeholder="(xx) xxxxx-xxxx">
             </div>
             <div class="form-group">
               <label>Permissão</label>
-              <select class="form-control" name="tipoConta" id="tipoConta">
+              <select class="form-control" name="typeAccount" id="tipoConta">
                 <option selected disabled>Ex: Comum, Moderador ou Administrador</option>
-                <option>Comum</option>
-                <option>Moderador</option>
-                <option>Administrador</option>
+                <option value="0">Comum</option>
+                <option value="1">Moderador</option>
+                <option value="2">Administrador</option>
               </select>
             </div>
             <button type="submit" class="btn btn-block btn-modal">Salvar</button>
