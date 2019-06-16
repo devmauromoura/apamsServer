@@ -12,6 +12,7 @@ Route::get('/logout', function(){ Auth::logout(); return "deslogado"; });
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home','homeController@show');
+    Route::get('/configuracoes','ConfiguracoesController@show');
 
     Route::prefix('/users')->group(function(){
         Route::get('/', 'UserController@show');
@@ -20,9 +21,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/delete', 'UserController@delete');
     });
 
-    Route::prefix('/animals')->group(function(){
+    Route::prefix('/animais')->group(function(){
         Route::get('/','AnimalsController@showWeb');
-        Route::match(['get', 'post'], '/register', 'AnimalsController@registerWeb');
+        Route::match(['get', 'post'], '/cadastro', 'AnimalsController@registerWeb');
         Route::match(['get', 'post'],'/update', 'AnimalsController@updateWeb');
         Route::post('/delete', 'AnimalsController@registerWeb');
     });
@@ -33,4 +34,13 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/update','PostController@update');
         Route::post('/delete','PostController@delete');
     });
+});
+
+/*  ROTAS PARA TESTES GERAIS */
+
+Route::prefix('/testes')->group(function(){
+  Route::get('/upload', function(){
+      return view('Testes.upload');
+  });
+  Route::post('/upload/enviar', 'GalleryController@enviar');
 });

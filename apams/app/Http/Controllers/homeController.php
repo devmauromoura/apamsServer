@@ -17,9 +17,9 @@ class homeController extends Controller
         $totalAdopted = Animals::where('adopted','2')->count();
         $totalNoAdopted = Animals::where('adopted','<=','2')->count();
         $totalSponsors = Sponsors::count();
-        $totatlUsers = User::count();
-        $nameUserAuth = Auth::user('name');
+        $totalUsers = User::count();
+        $nameUserAuth = Auth::user()->name;
         
-        return view('home')->with(compact('totalCat'))->with(compact('totalDog'))->with(compact('totalAdopted'))->with(compact('totalNoAdopetd'))->with(compact('totalSponsors'))->with(compact('totalUsers'))->with(compact('nameUserAuth'));
+        return view('home')->with(compact('totalCat'))->with(compact('totalDog'))->with(compact('totalAdopted'))->with(compact('totalNoAdopted'))->with(compact('totalSponsors'))->with(compact('totalUsers'))->with(compact('nameUserAuth'));
     }
 }

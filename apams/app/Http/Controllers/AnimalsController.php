@@ -17,21 +17,15 @@ class AnimalsController extends Controller
     }
 
     protected function registerWeb(Request $request){
-        $method = $request->method();
-
-        if($request->isMethod('post')){
             $dataAnimal = $request->all();
             $newAnimal = new Animals;
             $newAnimal->name = $dataAnimal['name'];
             $newAnimal->size = $dataAnimal['size'];
             $newAnimal->type = $dataAnimal['type'];
+            $newAnimal->adopted = $dataAnimal['adopted'];
             $newAnimal->description = $dataAnimal['description'];
             $newAnimal->save();
             return redirect()->back();
-        }
-        if($request->isMethod('get')){
-            return View::make('registerAnimal');
-        }
     }
 
     protected function updateWeb(Request $request){
