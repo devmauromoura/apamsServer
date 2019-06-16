@@ -53,7 +53,7 @@ class LoginController extends Controller
     
                 $registerdate = $request->all();
                 if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
-                    return "Logado";
+                    return View::make('home');
                 }else{
                     return "Usuario/Senha incorretos, tente novamente";
                     }

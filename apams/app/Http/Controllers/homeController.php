@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\View;
 class homeController extends Controller
 {
     public function show(){
-        $totalCat = Animals::where('type','1')->count();
-        $totalDog = Animals::where('type','2')->count();
+        $totalCat = Animals::where('type','Gato')->count();
+        $totalDog = Animals::where('type','Cachorro')->count();
         $totalAdopted = Animals::where('adopted','2')->count();
         $totalNoAdopted = Animals::where('adopted','<=','2')->count();
         $totalSponsors = Sponsors::count();

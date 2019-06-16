@@ -1,5 +1,5 @@
 @extends('Layouts.app')
-@section('title', 'Home - APAMS')
+@section('title', 'Configurações')
 @section('conteudo')
 
   <div id="conteudo">

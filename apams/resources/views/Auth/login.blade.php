@@ -5,15 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ADM APAMS</title>
+    <title>Login</title>
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
 <body>
-
-
     <main>
 
         <section banner>
@@ -35,14 +33,14 @@
                 </button>
             </div>
             <form action="/login" method="POST">
-                @csrf
+            @csrf
                 <div class="form-group">
                     <label>Endereço de email</label>
-                    <input type="email" class="form-control" name="email" placeholder="Seu email">
+                    <input type="email" class="form-control" name="email" placeholder="Seu email" required>
                 </div>
                 <div class="form-group">
                     <label>Senha</label>
-                    <input type="password" name="password" class="form-control" placeholder="Senha">
+                    <input type="password" class="form-control" name="password" placeholder="Senha" required>
                 </div>
                 <button type="submit" class="btn btn-block">Enviar</button>
             </form>
