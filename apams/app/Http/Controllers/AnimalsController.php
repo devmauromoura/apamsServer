@@ -38,6 +38,7 @@ class AnimalsController extends Controller
             $dataUpdate->size = $animalUpdate['size'];
             $dataUpdate->type = $animalUpdate['type'];
             $dataUpdate->description = $animalUpdate['description'];
+            $dataUpdate->adopted = $animalUpdate['adopted'];
             $dataUpdate->save();
 
             return redirect('configuracoes');

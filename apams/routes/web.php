@@ -8,7 +8,7 @@
 
 Route::get('/','Auth\LoginController@index')->name('index');
 Route::post('/login','Auth\LoginController@login');
-Route::get('/logout', function(){ Auth::logout(); return "deslogado"; });
+Route::get('/sair', function(){ Auth::logout(); return redirect(''); });
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home','homeController@show');
@@ -26,6 +26,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::match(['get', 'post'], '/cadastro', 'AnimalsController@registerWeb');
         Route::match(['get', 'post'],'/update', 'AnimalsController@updateWeb');
         Route::post('/delete', 'AnimalsController@registerWeb');
+    });
+
+    Route::prefix('/patrocinadores')->group(function(){
+        Route::get('/', 'SponsorsController@show');
+        Route::post('/cadastrar', 'SponsorsController@register');
     });
 
     Route::prefix('/posts')->group(function(){

@@ -291,9 +291,9 @@
               <label>Processo de adoção</label>
               <select class="form-control" name="adopted" id="adoptedAnimal">
                 <option selected disabled>Ex: Adotado, Aguardando ou Processo</option>
-                <option>Adotado</option>
-                <option>Aguardando</option>
-                <option>Processo</option>
+                <option value="2">Adotado</option>
+                <option value="0">Aguardando</option>
+                <option value="1">Processo</option>
               </select>
             </div>
             <div class="form-group">
