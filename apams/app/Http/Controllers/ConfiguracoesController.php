@@ -5,6 +5,7 @@ namespace ApamsServer\Http\Controllers;
 use Illuminate\Http\Request;
 use ApamsServer\Animals;
 use ApamsServer\User;
+use ApamsServer\Sponsors;
 use Auth;
 
 class ConfiguracoesController extends Controller
@@ -15,7 +16,8 @@ class ConfiguracoesController extends Controller
         $users = User::all();
         $usersCount = User::count();
         $nameUserAuth = Auth::user()->name;
+        $sponsors = Sponsors::all();
 
-        return view('config')->with(compact('animal'))->with(compact('animalCount'))->with(compact('users'))->with(compact('usersCount'))->with(compact('nameUserAuth'));
-    }
+        return view('config')->with(compact('animal'))->with(compact('animalCount'))->with(compact('users'))->with(compact('usersCount'))->with(compact('nameUserAuth'))->with(compact('sponsors'));
+    }    
 }

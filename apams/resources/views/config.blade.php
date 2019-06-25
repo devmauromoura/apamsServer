@@ -1,7 +1,6 @@
-@extends('Layouts.app')
+@extends('layouts.app')
 @section('title', 'Configurações')
 @section('conteudo')
-
   <div id="conteudo">
 
     <div class="title">
@@ -20,6 +19,10 @@
           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
             aria-selected="false">Usuários</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" id="patrocinio-tab" data-toggle="tab" href="#patrocinio" role="tab"
+            aria-controls="patrocinio" aria-selected="false">Patrocínio</a>
+        </li>
       </ul>
 
       <div class="tab-content" id="tabConfigContent">
@@ -28,7 +31,7 @@
           <div class="title-tab">
             <h2>Cadastrar Animais</h2>
           </div>
-          <form action="/animais/cadastro" method="POST" class="row" id="cadastrarAnimal">
+          <form action="/animais/cadastro" method="POST" enctype="multipart/form-data" class="row" id="cadastrarAnimal">
             @csrf
             <div class="form-group col-md-12">
               <label>Nome</label>
@@ -62,7 +65,7 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+              <input type="file" id="fileElem" name="image" onchange="handleFiles(this.files)">
               <a href="#" id="fileSelect"><span class="badge badge-primary">Selecione a imagem</span></a>
               <div id="fileList">
                 <p>Nenhum arquivo selecionado</p>
@@ -81,10 +84,6 @@
               <div>
                 <h2>Listar Animais</h2>
               </div>
-              <div class="procurar-animais">
-                <i class="fas fa-search"></i>
-                <input type="text" class="form-control" id="procurarAnimais" placeholder="Pesquisar nome do animal">
-              </div>
             </div>
             <table class="table text-center" id="tabelaAnimais">
               <thead>
@@ -101,7 +100,6 @@
                 </tr>
               </thead>
               <tbody>
-
                   @if($animalCount == 0)
                   <th></th>
                   <th></th>
@@ -118,7 +116,7 @@
                   <th scope="row">{{$animais->id}}</th>
                   <td class="resp-table">
                     <div class="avatar-list">
-                      <img src="./img/avatar.png" alt="Avatar" height="50px;">
+                      <img src="{{$animais->avatarUrl}}" alt="Avatar" height="50px;">
                     </div>
                   </td>
                   <td>{{$animais->name}}</td>
@@ -152,16 +150,16 @@
             @csrf
             <div class="form-group col-md-12">
               <label>Nome</label>
-              <input type="text" class="form-control" name="name" id="nameProfile" placeholder="Nome do usuário">
+              <input type="text" class="form-control" name="nameProfile" id="nameProfile" placeholder="Nome do usuário">
             </div>
             <div class="form-group col-md-12">
               <label>E-mail</label>
-              <input type="email" class="form-control" name="email" id="emailProfile"
+              <input type="email" class="form-control" name="emailProfile" id="emailProfile"
                 placeholder="E-mail do usuário">
             </div>
             <div class="form-group col-md-6">
               <label>Senha</label>
-              <input type="text" class="form-control" name="password" id="passProfile"
+              <input type="text" class="form-control" name="passProfile" id="passProfile"
                 placeholder="Senha do usuário">
             </div>
             <div class="form-group col-md-6">
@@ -181,10 +179,6 @@
               <div>
                 <h2>Usuários</h2>
               </div>
-              <div class="procurar-animais">
-                <i class="fas fa-search"></i>
-                <input type="text" class="form-control" id="procurarProfile" placeholder="Pesquisar nome do usuário">
-              </div>
             </div>
             <table class="table text-center" id="tabelaProfile">
               <thead>
@@ -201,43 +195,84 @@
                 </tr>
               </thead>
               <tbody>
-                @if($usersCount == 0)
-                <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th>Não há animais cadastrados!</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                @else
                 @foreach($users as $usuario)
                 <tr>
                   <th scope="row">{{$usuario->id}}</th>
                   <td>{{$usuario->name}}</td>
                   <td class="resp-table">{{$usuario->email}}</td>
                   <td>{{$usuario->cellphone}}</td>
-                  @if($usuario->activeAccount == 1)
                   <td class="resp-table">Ativo</td>
-                  @else
-                  <td class="resp-table">Inativo</td>
-                  @endif
-
-                  @if($usuario->typeAccount == 0)
-                  <td class="resp-table">Comum</td>
-                  @elseif($usuario->typeAccount == 1)
-                  <td class="resp-table">Moderador</td>
-                  @else
-                  <td class="resp-table">Adminsitrador</td>
-                  @endif
+                  <td class="resp-table">Administrador</td>
                   <td><i class="fas fa-edit" data-toggle="modal" data-target="#editarProfile" title="Editar"></i></td>
                   <td><i class="fas fa-trash-alt" data-toggle="modal" data-target="#removerProfile" title="Remover"></i>
                   </td>
                   <td><i class="fas fa-envelope" data-toggle="modal" data-target="#getEmailProfile" title="Enviar e-mail"></i></td>
                 </tr>
                 @endforeach
-                @endif
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="patrocinio" role="tabpanel" aria-labelledby="patrocinio-tab">
+          <div class="title-tab">
+            <h2>Cadastrar Patrocinadores</h2>
+          </div>
+          <form action="/patrocinadores/cadastrar" method="POST" class="row" id="cadastrarPatrocinio">
+            @csrf
+            <div class="form-group col-md-12">
+              <label>Nome</label>
+              <input type="text" class="form-control" name="namePatrocinio" id="namePatrocinio"
+                placeholder="Nome do patrocinador">
+            </div>
+            <div class="form-group col-md-6">
+              <label>E-mail</label>
+              <input type="email" class="form-control" name="emailPatrocinio" id="emailPatrocinio"
+                placeholder="E-mail do patrocinador">
+            </div>
+            <div class="form-group col-md-6">
+              <label>Contato</label>
+              <input type="text" class="form-control celNum" name="celPatrocinio" id="celPatrocinio"
+                placeholder="(xx)xxxxx-xxxx">
+            </div>
+            <div class="form-group col-md-6"></div>
+            <div class="form-group col-md-6">
+              <label>Imagem Patrocínio</label>
+              <input type="file" class="form-control-file" id="logoPatrocinio">
+            </div>            
+            <button type="submit" class="btn">Salvar</button>
+          </form>
+          <hr>
+          <div class="table-responsive">
+            <div class="title-list">
+              <div>
+                <h2>Patrocinadores</h2>
+              </div>
+            </div>
+            <table class="table text-center" id="tabelaPatrocinador">
+              <thead>
+                <tr>
+                  <th scope="col">#ID</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">Contato</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($sponsors as $patrocinador)
+                <tr>
+                  <th scope="row">{{$patrocinador->id}}</th>
+                  <td>{{$patrocinador->name}}</td>
+                  <td>{{$patrocinador->email}}</td>
+                  <td>{{$patrocinador->cellphone}}</td>
+                  <td><i class="fas fa-edit" data-toggle="modal" data-target="#editarPratrocinio" title="Editar"></i>
+                  </td>
+                  <td><i class="fas fa-trash-alt" data-toggle="modal" data-target="#removerProfile" title="Remover"></i>
+                  </td>
+                </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
@@ -245,7 +280,6 @@
 
       </div>
     </div>
-  </div>
   </div>
 
   <!-- Modal -->
@@ -259,19 +293,19 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="/animais/update" method="POST" id="editarAnimal">
-          @csrf
+          <form action="/animais/update" method="post" id="editarAnimal">
+            @csrf
             <div class="form-group" id="idModalEditarAnimal">
               <label>ID</label>
-              <input type="text" class="form-control" id="idAnimal" name="id" placeholder="Nome do animal">
+              <input type="text" class="form-control" name="idAnimal" id="idAnimal" placeholder="Nome do animal">
             </div>
             <div class="form-group">
               <label>Nome</label>
-              <input type="text" class="form-control" name="name" id="nameAnimal" placeholder="Nome do animal">
+              <input type="text" class="form-control" name="nameAnimal" id="nameAnimal" placeholder="Nome do animal">
             </div>
             <div class="form-group">
               <label>Porte</label>
-              <select class="form-control" name="size" id="porteAnimal">
+              <select class="form-control" name="porteAnimal" id="porteAnimal">
                 <option selected disabled>Ex: Grande, Medio ou Pequeno</option>
                 <option>Grande</option>
                 <option>Médio</option>
@@ -280,7 +314,7 @@
             </div>
             <div class="form-group">
               <label>Tipo</label>
-              <select class="form-control" name="type" id="typeAnimal">
+              <select class="form-control" name="typeAnimal" id="typeAnimal">
                 <option selected disabled>Ex: Cachorro, Gato ou Outro</option>
                 <option>Cachorro</option>
                 <option>Gato</option>
@@ -289,11 +323,11 @@
             </div>
             <div class="form-group">
               <label>Processo de adoção</label>
-              <select class="form-control" name="adopted" id="adoptedAnimal">
+              <select class="form-control" name="adoptedAnimal" id="adoptedAnimal">
                 <option selected disabled>Ex: Adotado, Aguardando ou Processo</option>
-                <option value="2">Adotado</option>
-                <option value="0">Aguardando</option>
-                <option value="1">Processo</option>
+                <option>Adotado</option>
+                <option>Aguardando</option>
+                <option>Processo</option>
               </select>
             </div>
             <div class="form-group">
@@ -302,7 +336,7 @@
             </div>
             <div class="form-group">
               <label for="description">Descrição</label>
-              <textarea class="form-control" name="description" id="descriptionAnimal"
+              <textarea class="form-control" name="descriptionAnimal" id="descriptionAnimal"
                 placeholder="Insira uma descrição sobre o animal..." rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-block btn-modal">Salvar</button>
@@ -343,28 +377,28 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="/users/update" method="POST" id="editarUsuario">
+          <form action="/users/update" method="post" id="editarUsuario">
             @csrf
-            <div class="form-group" id="idModalEditarProfile">
+            <div class="form-group"  id="idModalEditarProfile">
               <label>ID</label>
-              <input type="text" class="form-control" name="id" id="idProfile">
+              <input type="text" class="form-control" name="idProfile" id="idProfile">
             </div>
             <div class="form-group">
               <label>Nome</label>
-              <input type="text" class="form-control" name="name" id="nomeProfile" placeholder="Nome do usuário">
+              <input type="text" class="form-control" name="nomeProfile" id="nomeProfile" placeholder="Nome do usuário">
             </div>
             <div class="form-group">
               <label>E-mail</label>
-              <input type="email" class="form-control" name="email" id="mailProfile"
+              <input type="email" class="form-control" name="mailProfile" id="mailProfile"
                 placeholder="E-mail do usuário">
             </div>
             <div class="form-group">
               <label>Celular</label>
-              <input type="text" class="form-control celNum" name="cellphone" id="celProfile" placeholder="(xx) xxxxx-xxxx">
+              <input type="text" class="form-control celNum" name="celProfile" id="celProfile" placeholder="(xx) xxxxx-xxxx">
             </div>
             <div class="form-group">
               <label>Permissão</label>
-              <select class="form-control" name="typeAccount" id="tipoConta">
+              <select class="form-control" name="tipoConta" id="tipoConta">
                 <option selected disabled>Ex: Comum, Moderador ou Administrador</option>
                 <option value="0">Comum</option>
                 <option value="1">Moderador</option>
@@ -417,4 +451,41 @@
       </div>
     </div>
   </div>
-@endsection
+
+  <div class="modal fade" id="editarPratrocinio" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar patrocinador</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/patrocinadores/atualizar" method="post" id="editarPatrocinador">
+            <div class="form-group" id="idModalEditarPatrocinador">
+              <label>ID</label>
+              <input type="text" class="form-control" name="idPatrocinador" id="idPatrocinador">
+            </div>
+            <div class="form-group">
+              <label>Nome</label>
+              <input type="text" class="form-control" name="nomePatrocinador" id="nomePatrocinador"
+                placeholder="Nome do patrocinador">
+            </div>
+            <div class="form-group">
+              <label>E-mail</label>
+              <input type="email" class="form-control" name="mailPatrocinador" id="mailPatrocinador"
+                placeholder="E-mail do patrocinador">
+            </div>
+            <div class="form-group">
+              <label>Celular</label>
+              <input type="text" class="form-control celNum" id="celPatrocinador" placeholder="(xx) xxxxx-xxxx">
+            </div>
+            <button type="submit" class="btn btn-block btn-modal">Salvar</button>
+            <button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Sair</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endsection

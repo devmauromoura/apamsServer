@@ -4,12 +4,18 @@ namespace ApamsServer\Http\Controllers;
 
 use Illuminate\Http\Request;
 use ApamsServer\Post;
+use ApamsServer\Animals;
+use ApamsServer\User;
+use Auth;
 use View;
 
 class PostController extends Controller
 {
     public function show(){
-        return Post::all();
+        $posts = Post::all();
+        $animals = Animals::all();
+        $nameUserAuth = Auth::user()->name;
+        return View::make('posts')->with(compact('nameUserAuth'))->with(compact('animals'))->with(compact('posts'));
     }
 
     protected function create(Request $request){
@@ -18,15 +24,15 @@ class PostController extends Controller
         if ($method == "POST") {
             $postData = $request->all();
             $newPost = new Post;
-            $newPost->idAnimal = $request['idAnimal'];
-            $newPost->title = $request['title'];
+            $newPost->idAnimal = $request['animal'];
+            $newPost->title = $request['titulo'];
             $newPost->description = $request['description'];
-            $newPost->typePost = $request['typePost'];
-            $newPost->status = $request['status'];
+            $newPost->typePost = $request['finalidade'];
+            $newPost->status = 0;
             $newPost->idUser = Auth::user()->id;
             $newPost->save();
 
-            return "Post cadastrado com sucesso";
+            return redirect('posts');
         }
         elseif ($method == "GET") {
             return View::make('Post.create');
@@ -42,10 +48,10 @@ class PostController extends Controller
         if ($method == "POST") {
             $postData = $request->all();
             $postUpdate = Post::find($request['id']);
-            $postUpdate->idAnimal = $request['idAnimal'];
+            $postUpdate->idAnimal = $request['animal'];
             $postUpdate->title = $request['title'];
             $postUpdate->description = $request['description'];
-            $postUpdate->typePost = $request['typePost'];
+            $postUpdate->typePost = $request['finalidade'];
             $postUpdate->status = $request['status'];
             $newPost->save();
 
@@ -67,15 +73,3 @@ class PostController extends Controller
         return "Post removido com sucesso!";
     }
 }
-
-
-
-/*
-id
-idAnimal
-title
-description
-typePost
-status
-idUser
-*/

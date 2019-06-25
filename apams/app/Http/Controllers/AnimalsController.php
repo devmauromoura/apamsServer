@@ -4,11 +4,13 @@ namespace ApamsServer\Http\Controllers;
 
 use Illuminate\Http\Request;
 use ApamsServer\Animals;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 use Auth;
+
 class AnimalsController extends Controller
 {
-
-        //###################### FUNCTIONS 4 WEB ROUTES ######################
+    //Funções para Routes Web
 
     protected function showWeb(){
         $animals = Animals::all();
@@ -23,9 +25,35 @@ class AnimalsController extends Controller
             $newAnimal->size = $dataAnimal['size'];
             $newAnimal->type = $dataAnimal['type'];
             $newAnimal->adopted = $dataAnimal['adopted'];
-            $newAnimal->description = $dataAnimal['description'];
+            $newAnimal->description = $dataAnimal['description'];  
+
+            $photos = $request->user()->photos();
+            $file = $request->file('image');
+
+            $path = $file->path(); #Pega o caminho temporario da img
+            $extension = $file->extension(); # Peaga a extensão do arquivo
+            $converted = Str::kebab($file->getClientOriginalName());       
+
+            $uploadToken = $photos->upload($converted, fopen($path, 'r'));
+            $result = $photos->batchCreate([$uploadToken]);            
+
+            $dadosUpload = $result->newMediaItemResults['0']->mediaItem->id;
+
+            $media = $request->user()->photos()->media($dadosUpload);
+            
+            $baseUrl = $media;
+
+            $urlSave = $baseUrl->baseUrl;
+            
+            //dd($urlSave);
+
+            $newAnimal->avatarUrl = $urlSave; 
+            
             $newAnimal->save();
+            
             return redirect()->back();
+            
+
     }
 
     protected function updateWeb(Request $request){
@@ -33,12 +61,12 @@ class AnimalsController extends Controller
 
         if($request->isMethod('post')){
             $animalUpdate = $request->all();
-            $dataUpdate = Animals::find($animalUpdate['id']);
-            $dataUpdate->name = $animalUpdate['name'];
-            $dataUpdate->size = $animalUpdate['size'];
-            $dataUpdate->type = $animalUpdate['type'];
-            $dataUpdate->description = $animalUpdate['description'];
-            $dataUpdate->adopted = $animalUpdate['adopted'];
+            $dataUpdate = Animals::find($animalUpdate['idAnimal']);
+            $dataUpdate->name = $animalUpdate['nameAnimal'];
+            $dataUpdate->size = $animalUpdate['porteAnimal'];
+            $dataUpdate->type = $animalUpdate['typeAnimal'];
+            $dataUpdate->description = $animalUpdate['descriptionAnimal'];
+            $dataUpdate->adopted = $animalUpdate['adoptedAnimal'];
             $dataUpdate->save();
 
             return redirect('configuracoes');
@@ -55,6 +83,5 @@ class AnimalsController extends Controller
 
         return "Animal Removido!";
     }
-
 
 }

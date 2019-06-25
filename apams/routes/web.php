@@ -4,6 +4,11 @@
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
 */
 
 Route::get('/','Auth\LoginController@index')->name('index');
@@ -29,23 +34,45 @@ Route::group(['middleware' => 'auth'], function(){
     });
 
     Route::prefix('/patrocinadores')->group(function(){
-        Route::get('/', 'SponsorsController@show');
         Route::post('/cadastrar', 'SponsorsController@register');
+        Route::post('/atualizar', 'SponsorsController@update');
     });
 
-    Route::prefix('/posts')->group(function(){
+    Route::prefix('/postagens')->group(function(){
         Route::get('/','PostController@show');
         Route::match(['get', 'post'], '/create', 'PostController@create');
         Route::post('/update','PostController@update');
         Route::post('/delete','PostController@delete');
     });
+
+    Route::prefix('/notificaoes')->group(function(){
+        Route::get('/','NotificationController@show');
+    });    
 });
 
-/*  ROTAS PARA TESTES GERAIS */
 
-Route::prefix('/testes')->group(function(){
-  Route::get('/upload', function(){
-      return view('Testes.upload');
-  });
-  Route::post('/upload/enviar', 'GalleryController@enviar');
+
+
+
+
+
+
+Route::get('callback', 'Auth\LoginController@callback');
+Route::prefix('/auth')->group(function () {
+    Route::get('google', 'Auth\LoginController@redirect');
+    Route::name('logout')->post('logout', 'LoginController@logout');
+});
+
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::resource('albums', 'AlbumController');
+
+    Route::resource('mediaitems', 'MediaController');
+
+    Route::name('mediaitems.album')->get('mediaitems/album/{id}', 'MediaController@album');
+
+    Route::view('upload', 'form')->name('form');
+    Route::name('upload')->post('upload', 'UploadController');
 });

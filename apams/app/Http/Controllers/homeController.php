@@ -9,8 +9,29 @@ use ApamsServer\User;
 Use Auth;
 use Illuminate\Support\Facades\View;
 
-class homeController extends Controller
+class HomeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function index()
+    {
+        return view('home');
+    }
+
     public function show(){
         $totalCat = Animals::where('type','Gato')->count();
         $totalDog = Animals::where('type','Cachorro')->count();
@@ -22,4 +43,5 @@ class homeController extends Controller
         
         return view('home')->with(compact('totalCat'))->with(compact('totalDog'))->with(compact('totalAdopted'))->with(compact('totalNoAdopted'))->with(compact('totalSponsors'))->with(compact('totalUsers'))->with(compact('nameUserAuth'));
     }
+
 }

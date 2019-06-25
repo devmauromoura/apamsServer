@@ -9,23 +9,19 @@ use Hash;
 
 class UserController extends Controller
 {
-    protected function show(){
-        return User::all();
-    }
-
     protected function update(Request $request){
         $method = $request->method();
 
         if($method == 'POST'){
             $newData = $request->all();
-            $updateUser = User::find($newData['idUser']);
-            $updateUser->name = $newData['name'];
-            $updateUser->email = $newData['email'];
-            $updateUser->password = Hash::make($newData['password']);
-            $updateUser->cellphone = $newData['cellphone'];
+            $updateUser = User::find($newData['idProfile']);
+            $updateUser->name = $newData['nomeProfile'];
+            $updateUser->email = $newData['mailProfile'];
+            $updateUser->cellphone = $newData['celProfile'];
+            $updateUser->typeAccount = $newData['tipoConta'];
             $updateUser->save();
 
-            return "update realizado";
+            return redirect('/configuracoes');
         }elseif ($method == 'GET') {
             return view('User.update');
         }else {

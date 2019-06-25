@@ -49,9 +49,9 @@ class RegisterController extends Controller
         
         if($method == 'POST'){
             $validatedData = Validator::make($request->all(), [
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required',
+                'nameProfile' => 'required',
+                'emailProfile' => 'required',
+                'passProfile' => 'required',
                 'typeAccount' => 'required',
             ]);
             if ($validatedData->fails()) {
@@ -63,9 +63,9 @@ class RegisterController extends Controller
                 }
                 else {
                     $registerUser = new User;
-                    $registerUser->name = $data['name'];
-                    $registerUser->email = $data['email'];
-                    $registerUser->password = Hash::make($data['password']);
+                    $registerUser->name = $data['nameProfile'];
+                    $registerUser->email = $data['emailProfile'];
+                    $registerUser->password = Hash::make($data['passProfile']);
                     $registerUser->typeAccount = $data['typeAccount'];
                     $registerUser->save();
                     

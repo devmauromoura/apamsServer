@@ -1,4 +1,4 @@
-@extends('Layouts.app')
+@extends('layouts.app')
 @section('title', 'Home')
 @section('conteudo')
 
@@ -28,7 +28,7 @@
           <i class="fas fa-cat"></i>
           <div class="text-box">
             <h3>Gatos Cadastrados</h3>
-            @if ($totalCat == 0)
+            @if($totalCat == 0)
             <h1 class="float-right">0</h1>
             @else
             <h1 class="float-right">{{$totalCat}}</h1>
@@ -54,11 +54,12 @@
           <i class="fas fa-paw"></i>
           <div class="text-box">
             <h3>Animais Adotados</h3>
-            @if ($totalAdopted == 0)
+            @if($totalAdopted == 0)
             <h1 class="float-right">0</h1>
             @else
             <h1 class="float-right">{{$totalAdopted}}</h1>
             @endif
+
           </div>
         </div>
 
@@ -67,7 +68,7 @@
           <i class="fas fa-search"></i>
           <div class="text-box">
             <h3>Animais sem adoção</h3>
-            @if ($totalNoAdopted == 0)
+            @if($totalNoAdopted == 0)
             <h1 class="float-right">0</h1>
             @else
             <h1 class="float-right">{{$totalNoAdopted}}</h1>
@@ -80,15 +81,13 @@
           <i class="fas fa-bullhorn"></i>
           <div class="text-box">
             <h3>Patrocinadores</h3>
-            @if ($totalSponsors == 0)
+            @if($totalSponsors == 0)
             <h1 class="float-right">0</h1>
             @else
             <h1 class="float-right">{{$totalSponsors}}</h1>
             @endif
           </div>
         </div>
-
-
       </div>
     </div>
   </div>

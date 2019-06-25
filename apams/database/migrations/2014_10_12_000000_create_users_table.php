@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\Hash;
 use ApamsServer\User;
 
 class CreateUsersTable extends Migration
@@ -16,16 +15,18 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
+            $table->string('access_token')->nullable();
+            $table->string('refresh_token')->nullable();
+            $table->unsignedInteger('expires_in')->nullable();
+            $table->rememberToken();
             $table->string('cellphone')->nullable();
             $table->string('avatarUrl')->default('example');
             $table->boolean('activeAccount')->default(0);   // 0 - Não tivo   1 - Ativo
-            $table->boolean('typeAccount')->default(0);  // 0 - Usuário normal, 1 - Usuário Moderador, 2 - Usuário Administrador.
-            $table->rememberToken();
+            $table->boolean('typeAccount')->default(0);  // 0 - Usuário normal, 1 - Usuário Moderador, 2 - Usuário Administrador.            
             $table->timestamps();
         });
 
