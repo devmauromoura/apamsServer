@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +16,7 @@ Route::get('/sair', function(){ Auth::logout(); return redirect(''); });
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home','homeController@show');
-    Route::get('/configuracoes','ConfiguracoesController@show');
+    Route::get('/configuracoes','ConfiguracoesController@show')->middleware('check.user');
 
     Route::prefix('/users')->group(function(){
         Route::get('/', 'UserController@show');
@@ -39,16 +38,16 @@ Route::group(['middleware' => 'auth'], function(){
     });
 
     Route::prefix('/postagens')->group(function(){
-        Route::get('/','PostController@show');
+        Route::get('/','PostController@show')->middleware('check.user');
         Route::match(['get', 'post'], '/create', 'PostController@create');
         Route::post('/update','PostController@update');
         Route::post('/delete','PostController@delete');
     });
 
     Route::prefix('/notificacoes')->group(function(){
-        Route::get('/','NotificationController@show');
+        Route::get('/','NotificationController@show')->middleware('check.user');
         Route::post('/create','NotificationController@create');
-    });    
+    });
 });
 
 
