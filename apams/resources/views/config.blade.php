@@ -216,9 +216,9 @@
                   @if($usuario->typeAccount == 0)
                   <td class="resp-table">Comum</td>
                   @elseif($usuario->typeAccount == 1)
-                  <td class="resp-table">Moderador</td>
+                  <td class="resp-table">Mod</td>
                   @else
-                  <td class="resp-table">Adminsitrador</td>
+                  <td class="resp-table">Admin</td>
                   @endif
                   <td><i class="fas fa-edit" data-toggle="modal" data-target="#editarProfile" title="Editar"></i></td>
                   <td><i class="fas fa-trash-alt" data-toggle="modal" data-target="#removerProfile" title="Remover"></i>
