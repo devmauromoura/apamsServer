@@ -10,7 +10,7 @@
     </div>
     @if(session()->has('msg'))
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ session()->get('msg') }}
+        <center>{{ session()->get('msg') }}</div>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>

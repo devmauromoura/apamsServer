@@ -19,6 +19,7 @@ class UserController extends Controller
             $updateUser->email = $newData['mailProfile'];
             $updateUser->cellphone = $newData['celProfile'];
             $updateUser->typeAccount = $newData['tipoConta'];
+            $updateUser->activeAccount = $newData['statusProfile'];
             $updateUser->save();
 
             return redirect('/configuracoes')->with('msg', 'Usuário atualizado!');

@@ -428,6 +428,14 @@
                 <option value="2">Administrador</option>
               </select>
             </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select class="form-control" name="statusProfile" id="statusProfile">
+                  <option selected disabled>Defina o Status</option>
+                  <option value="0">Inativo</option>
+                  <option value="1">Ativo</option>
+                </select>
+              </div>
             <button type="submit" class="btn btn-block btn-modal">Salvar</button>
             <button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Sair</button>
           </form>

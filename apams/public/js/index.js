@@ -254,7 +254,8 @@ function selectedRowToInputProfile() {
       document.getElementById("nomeProfile").value = this.cells[1].innerHTML;
       document.getElementById("mailProfile").value = this.cells[2].innerHTML;
       document.getElementById("celProfile").value = this.cells[3].innerHTML;
-      document.getElementById("tipoConta").value = this.cells[5].innerHTML;
+      document.getElementById("tipoConta").value = this.cells[4].innerHTML;
+      document.getElementById("statusProfile").value = this.cells[5].innerHTML;
     };
   }
 }
@@ -265,13 +266,15 @@ function editHtmlTbleSelectedRowProfile() {
     nomeProfile = document.getElementById("nomeProfile").value,
     emailProfile = document.getElementById("mailProfile").value,
     celProfile = document.getElementById("celProfile").value;
-  tipoProfile = document.getElementById("tipoConta").value;
+    tipoProfile = document.getElementById("tipoConta").value;
+    statusProfile = document.getElementById("statusProfile").value;
   if (!checkEmptyInput()) {
     tabelaProfile.rows[rIndexProfile].cells[0].innerHTML = idProfile;
     tabelaProfile.rows[rIndexProfile].cells[1].innerHTML = nomeProfile;
     tabelaProfile.rows[rIndexProfile].cells[2].innerHTML = emailProfile;
     tabelaProfile.rows[rIndexProfile].cells[3].innerHTML = celProfile;
-    tabelaProfile.rows[rIndexProfile].cells[5].innerHTML = tipoProfile;
+    tabelaProfile.rows[rIndexProfile].cells[4].innerHTML = tipoProfile;
+    tabelaProfile.rows[rIndexProfile].cells[5].innerHTML = statusProfile;
   }
 }
 
