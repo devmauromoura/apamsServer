@@ -22,7 +22,7 @@
     <ul>
       <a href="\home"><li><i class="fas fa-home"></i>Home</li></a>
       <a href="\postagens"><li><i class="fas fa-th-list"></i>Postagens</li></a>
-      <a href="\notificaoes"><li><i class="fas fa-bell"></i>Notificações</li></a>
+      <a href="\notificacoes"><li><i class="fas fa-bell"></i>Notificações</li></a>
       <a href="\configuracoes"><li><i class="fas fa-cog"></i>Configurações</li></a>
       <a href="\sair"><li><i class="fas fa-sign-out-alt"></i>Sair</li></a>
     </ul>

@@ -44,7 +44,8 @@
                     <label>Senha</label>
                     <input type="password" class="form-control" name="password" placeholder="Senha">
                 </div>
-                <button type="submit" class="btn btn-block">Enviar</button>
+                <button type="submit" class="btn btn-block">Entrar</button>
+                <a href="/auth/google" class="btn btn-block">Entrar com conta Google</a>
             </form>
 
         </section>

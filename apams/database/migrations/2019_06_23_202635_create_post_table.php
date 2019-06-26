@@ -18,7 +18,7 @@ class CreatePostTable extends Migration
             $table->integer('idAnimal');
             $table->string('title');
             $table->string('description');
-            $table->integer('typePost');
+            $table->integer('typePost'); // 0 Adoção
             $table->boolean('status')->default(0); // 0 - Aguardando Adoção | 1 - Adotado
             $table->integer('idUser');            
             $table->timestamps();

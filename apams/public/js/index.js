@@ -283,9 +283,9 @@ function selectedRowToInputPatrocinador() {
     tabelaPatrocinador.rows[i].onclick = function () {
       rIndexPatrocinador = this.rowIndexPatrocinador;
       document.getElementById("idPatrocinador").value = this.cells[0].innerHTML;
-      document.getElementById("nomePatrocinador").value = this.cells[1].innerHTML;
-      document.getElementById("mailPatrocinador").value = this.cells[2].innerHTML;
-      document.getElementById("celPatrocinador").value = this.cells[3].innerHTML;
+      document.getElementById("nomePatrocinador").value = this.cells[2].innerHTML;
+      document.getElementById("mailPatrocinador").value = this.cells[3].innerHTML;
+      document.getElementById("celPatrocinador").value = this.cells[4].innerHTML;
     };
   }
 }
@@ -298,9 +298,9 @@ function editHtmlTbleSelectedRowPatrocinador() {
     celPatrocinador = document.getElementById("celPatrocinador").value;
   if (!checkEmptyInput()) {
     tabelaPatrocinador.rows[rIndexPatrocinador].cells[0].innerHTML = idPatrocinador;
-    tabelaPatrocinador.rows[rIndexPatrocinador].cells[1].innerHTML = nomePatrocinador;
-    tabelaPatrocinador.rows[rIndexPatrocinador].cells[2].innerHTML = emailPatrocinador;
-    tabelaPatrocinador.rows[rIndexPatrocinador].cells[3].innerHTML = celPatrocinador;
+    tabelaPatrocinador.rows[rIndexPatrocinador].cells[2].innerHTML = nomePatrocinador;
+    tabelaPatrocinador.rows[rIndexPatrocinador].cells[3].innerHTML = emailPatrocinador;
+    tabelaPatrocinador.rows[rIndexPatrocinador].cells[4].innerHTML = celPatrocinador;
   }
 }
 

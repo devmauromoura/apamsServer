@@ -58,7 +58,7 @@ class RegisterController extends Controller
                 return "Envie os dados corretamente!";
             }
             else {
-                if(User::where('email', $data['email'])->exists()){
+                if(User::where('email', $data['emailProfile'])->exists()){
                     return "Usuário já cadastrado";
                 }
                 else {

@@ -5,14 +5,13 @@
   <script type="text/javascript" src="js/jquery.mask.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-  <script src="js/index.js"></script>
+  <script src="./js/index.js"></script>
   
   <script>
     $("#showmenu").click(function (e) {
       $("#menu").toggleClass("show");
     });  
-  </script>
-  <script>
+    
     $(document).ready(function () {
       $('#tabelaAnimais').DataTable({
         "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],

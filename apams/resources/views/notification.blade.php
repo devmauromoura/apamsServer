@@ -13,7 +13,8 @@
       <div class="title-tab">
         <h2>Notificações</h2>
       </div>
-      <form action="" method="" class="row" id="notificacao">
+      <form action="/notificacoes/create" method="post" class="row" id="notificacao">
+        @csrf
         <div class="form-group col-md-12">
           <label>Titulo</label>
           <input type="text" class="form-control" name="tituloNot" id="tituloNot" placeholder="Titulo da postagem">
@@ -22,14 +23,16 @@
           <label>Patrocinadores</label>
           <select class="form-control" name="patroNot" id="patroNot">
             <option selected disabled>Procurar patrocinadores</option>
-            <option>Default</option>
+            @foreach($dataSponsors as $patrocinador)
+            <option value="{{$patrocinador->id}}">{{$patrocinador->name}}</option>
+            @endforeach
           </select>
         </div>
         <div class="form-group col-md-6">
           <label>Status</label>
           <select class="form-control" name="statusNot" id="statusNot">
             <option value="1" selected>Ativo</option>
-            <option value="0" >Desativado</option>
+            <option value="0" >Inativo</option>
           </select>
         </div>
         <div class="form-group col-md-12">
@@ -59,18 +62,22 @@
             </tr>
           </thead>
           <tbody>
-
+            @foreach($dataNotification as $notif)
             <tr>
-              <th scope="row">1</th>
-              <td>TW LOVE PET</td>
-              <td>TWSPEED TELECOM</td>
+              <th scope="row">{{$notif->id}}</th>
+              <td>{{$notif->title}}</td>
+              <td>{{$notif->sname}}</td>
+              @if($notif->status == 0)
+              <td>Inativo</td>
+              @else
               <td>Ativo</td>
-              <td class="resp-table">Promoção LOVE PET, instalação de internet gratis durante esta semana!</td>
-              <td><i class="fas fa-edit" data-toggle="modal" data-target="#editarNot" title="Editar"></i></td>
+              @endif
+              <td class="resp-table">{{$notif->description}}</td>
+              <td></td>
               <td><i class="fas fa-trash-alt" data-toggle="modal" data-target="#removerPost" title="Remover"></i>
               </td>
             </tr>
-
+            @endforeach
           </tbody>
         </table>
       </div>

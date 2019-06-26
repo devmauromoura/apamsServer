@@ -16,7 +16,9 @@ class CreateNotificationTable extends Migration
         Schema::create('notification', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->longText('description');            
+            $table->longText('description');
+            $table->integer('idPatrocinador'); 
+            $table->integer('status'); // 0 - Inativo,  1 - Ativo 
             $table->timestamps();
         });
     }

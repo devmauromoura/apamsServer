@@ -29,20 +29,14 @@ class AnimalsController extends Controller
 
             $photos = $request->user()->photos();
             $file = $request->file('image');
-
             $path = $file->path(); #Pega o caminho temporario da img
             $extension = $file->extension(); # Peaga a extensão do arquivo
             $converted = Str::kebab($file->getClientOriginalName());       
-
             $uploadToken = $photos->upload($converted, fopen($path, 'r'));
-            $result = $photos->batchCreate([$uploadToken]);            
-
+            $result = $photos->batchCreate([$uploadToken]);         
             $dadosUpload = $result->newMediaItemResults['0']->mediaItem->id;
-
             $media = $request->user()->photos()->media($dadosUpload);
-            
             $baseUrl = $media;
-
             $urlSave = $baseUrl->baseUrl;
             
             //dd($urlSave);
@@ -67,6 +61,19 @@ class AnimalsController extends Controller
             $dataUpdate->type = $animalUpdate['typeAnimal'];
             $dataUpdate->description = $animalUpdate['descriptionAnimal'];
             $dataUpdate->adopted = $animalUpdate['adoptedAnimal'];
+
+            $photos = $request->user()->photos();
+            $file = $request->file('image');
+            $path = $file->path(); #Pega o caminho temporario da img
+            $extension = $file->extension(); # Peaga a extensão do arquivo
+            $converted = Str::kebab($file->getClientOriginalName());       
+            $uploadToken = $photos->upload($converted, fopen($path, 'r'));
+            $result = $photos->batchCreate([$uploadToken]);            
+            $dadosUpload = $result->newMediaItemResults['0']->mediaItem->id;
+            $media = $request->user()->photos()->media($dadosUpload);
+            $baseUrl = $media;
+            $urlSave = $baseUrl->baseUrl;
+            $dataUpdate->avatarUrl = $urlSave;
             $dataUpdate->save();
 
             return redirect('configuracoes');

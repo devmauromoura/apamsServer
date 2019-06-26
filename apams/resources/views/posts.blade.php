@@ -12,7 +12,7 @@
       <div class="title-tab">
         <h2>Postagens</h2>
       </div>
-      <form action="postagens/create" method="post" class="row" id="postAnimal">
+      <form action="/postagens/create" method="post" class="row" id="postAnimal">
       	@csrf
         <div class="form-group col-md-12">
           <label>Titulo</label>
@@ -64,10 +64,13 @@
             <tr>
               <th scope="row">{{$post->id}}</th>
               <td>{{$post->title}}</td>
-              <td>{{$post->idAnimal}}</td>
-              <td>{{$post->status}}</td>
+              <td>{{$post->animalNome}}</td>
+              @if($post->status == 0)
+              <td>Aguardando Adoção</td>
+              @else
+              <td>Adotado</td>
+              @endif
               <td class="resp-table">Thanos e um vira-lata da cor preta e porte médio, muito brincalhão...</td>
-              <td><i class="fas fa-edit" data-toggle="modal" data-target="#editarPost" title="Editar"></i></td>
               <td><i class="fas fa-trash-alt" data-toggle="modal" data-target="#removerPost" title="Remover"></i>
               </td>
             </tr>
@@ -91,10 +94,10 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="" method="" id="editarPost">
+          <form action="/postagens/update" method="post" id="editarPost">
+            @csrf
             <div class="form-group" id="idModalEditarPost">
-              <label>ID</label>
-              <input type="text" class="form-control" id="idPost">
+              <input type="text" class="form-control" id="idPost" style="display: none;">
             </div>
             <div class="form-group">
               <label>Titulo</label>
@@ -104,20 +107,22 @@
               <label>Animal</label>
               <select class="form-control" name="editarAnimal" id="editarAnimal">
                 <option selected disabled>Procurar animal</option>
-                <option>Default</option>
+                @foreach($animals as $animais)
+                <option value="{{$animais->id}}">{{$animais->name}}</option>
+                @endforeach
               </select>
             </div>
             <div class="form-group">
               <label>Finalidade da postagem</label>
               <select class="form-control" name="editarFinalidade" id="editarFinalidade">
-                <option selected disabled>Adoção</option>
+                <option selected disabled value="0">Adoção</option>
               </select>
             </div>
             <div class="form-group">
               <label>Status</label>
               <select class="form-control" name="statusPost" id="statusPost">
-                <option value="1" selected>Ativo</option>
-                <option value="0">Desativado</option>
+                <option value="1" selected>Adotado</option>
+                <option value="0">Aguardando Adoção</option>
               </select>
             </div>
             <div class="form-group">

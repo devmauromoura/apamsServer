@@ -159,7 +159,7 @@
             </div>
             <div class="form-group col-md-6">
               <label>Senha</label>
-              <input type="text" class="form-control" name="passProfile" id="passProfile"
+              <input type="password" class="form-control" name="passProfile" id="passProfile"
                 placeholder="Senha do usuário">
             </div>
             <div class="form-group col-md-6">
@@ -201,8 +201,18 @@
                   <td>{{$usuario->name}}</td>
                   <td class="resp-table">{{$usuario->email}}</td>
                   <td>{{$usuario->cellphone}}</td>
+                  @if($usuario->activeAccount == 1)
                   <td class="resp-table">Ativo</td>
-                  <td class="resp-table">Administrador</td>
+                  @else
+                  <td class="resp-table">Inativo</td>
+                  @endif
+                  @if($usuario->typeAccount == 0)
+                  <td class="resp-table">Comum</td>
+                  @elseif($usuario->typeAccount == 1)
+                  <td class="resp-table">Moderador</td>                  
+                  @else
+                  <td class="resp-table">Adminsitrador</td>                  
+                  @endif
                   <td><i class="fas fa-edit" data-toggle="modal" data-target="#editarProfile" title="Editar"></i></td>
                   <td><i class="fas fa-trash-alt" data-toggle="modal" data-target="#removerProfile" title="Remover"></i>
                   </td>
@@ -218,7 +228,7 @@
           <div class="title-tab">
             <h2>Cadastrar Patrocinadores</h2>
           </div>
-          <form action="/patrocinadores/cadastrar" method="POST" class="row" id="cadastrarPatrocinio">
+          <form action="/patrocinadores/cadastrar" enctype="multipart/form-data" method="POST" class="row" id="cadastrarPatrocinio">
             @csrf
             <div class="form-group col-md-12">
               <label>Nome</label>
@@ -238,7 +248,7 @@
             <div class="form-group col-md-6"></div>
             <div class="form-group col-md-6">
               <label>Imagem Patrocínio</label>
-              <input type="file" class="form-control-file" id="logoPatrocinio">
+              <input type="file" class="form-control-file" name="image" id="logoPatrocinio">
             </div>            
             <button type="submit" class="btn">Salvar</button>
           </form>
@@ -253,6 +263,7 @@
               <thead>
                 <tr>
                   <th scope="col">#ID</th>
+                  <th class="resp-table" scope="col"></th>
                   <th scope="col">Nome</th>
                   <th scope="col">E-mail</th>
                   <th scope="col">Contato</th>
@@ -264,6 +275,11 @@
                 @foreach($sponsors as $patrocinador)
                 <tr>
                   <th scope="row">{{$patrocinador->id}}</th>
+                  <td class="resp-table">
+                    <div class="avatar-list">
+                      <img src="{{$patrocinador->logotypeUrl}}" alt="Avatar" height="50px;">
+                    </div>
+                  </td>
                   <td>{{$patrocinador->name}}</td>
                   <td>{{$patrocinador->email}}</td>
                   <td>{{$patrocinador->cellphone}}</td>
@@ -293,7 +309,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="/animais/update" method="post" id="editarAnimal">
+          <form action="/animais/update" method="post" enctype="multipart/form-data" id="editarAnimal">
             @csrf
             <div class="form-group" id="idModalEditarAnimal">
               <label>ID</label>
@@ -332,7 +348,7 @@
             </div>
             <div class="form-group">
               <label>Selecione a imagem</label>
-              <input type="file" id="fileElemModal">
+              <input type="file" name="image"  id="fileElemModal">
             </div>
             <div class="form-group">
               <label for="description">Descrição</label>
@@ -463,6 +479,7 @@
         </div>
         <div class="modal-body">
           <form action="/patrocinadores/atualizar" method="post" id="editarPatrocinador">
+            @csrf
             <div class="form-group" id="idModalEditarPatrocinador">
               <label>ID</label>
               <input type="text" class="form-control" name="idPatrocinador" id="idPatrocinador">

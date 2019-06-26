@@ -45,8 +45,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/delete','PostController@delete');
     });
 
-    Route::prefix('/notificaoes')->group(function(){
+    Route::prefix('/notificacoes')->group(function(){
         Route::get('/','NotificationController@show');
+        Route::post('/create','NotificationController@create');
     });    
 });
 

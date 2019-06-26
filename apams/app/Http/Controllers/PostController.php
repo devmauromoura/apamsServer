@@ -8,11 +8,13 @@ use ApamsServer\Animals;
 use ApamsServer\User;
 use Auth;
 use View;
+use DB;
 
 class PostController extends Controller
 {
     public function show(){
-        $posts = Post::all();
+        //$posts = Post::all();
+        $posts = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->select(DB::raw('post.id, post.title, post.typePost, post.status, animals.name AS animalNome'))->get();
         $animals = Animals::all();
         $nameUserAuth = Auth::user()->name;
         return View::make('posts')->with(compact('nameUserAuth'))->with(compact('animals'))->with(compact('posts'));
@@ -32,7 +34,7 @@ class PostController extends Controller
             $newPost->idUser = Auth::user()->id;
             $newPost->save();
 
-            return redirect('posts');
+            return redirect('postagens');
         }
         elseif ($method == "GET") {
             return View::make('Post.create');
@@ -47,12 +49,12 @@ class PostController extends Controller
 
         if ($method == "POST") {
             $postData = $request->all();
-            $postUpdate = Post::find($request['id']);
-            $postUpdate->idAnimal = $request['animal'];
-            $postUpdate->title = $request['title'];
+            $postUpdate = Post::find($request['idPost']);
+            $postUpdate->idAnimal = $request['editarAnimal'];
+            $postUpdate->title = $request['editarTitulo'];
             $postUpdate->description = $request['description'];
-            $postUpdate->typePost = $request['finalidade'];
-            $postUpdate->status = $request['status'];
+            $postUpdate->typePost = $request['editarFinalidade'];
+            $postUpdate->status = $request['statusPost'];
             $newPost->save();
 
             return "Update Realizado com Sucesso!";
