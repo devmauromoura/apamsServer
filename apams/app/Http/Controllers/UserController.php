@@ -21,7 +21,7 @@ class UserController extends Controller
             $updateUser->typeAccount = $newData['tipoConta'];
             $updateUser->save();
 
-            return redirect('/configuracoes');
+            return redirect('/configuracoes')->with('msg', 'Usuário atualizado!');
         }elseif ($method == 'GET') {
             return view('User.update');
         }else {

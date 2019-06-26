@@ -14,7 +14,7 @@ class PostController extends Controller
 {
     public function show(){
         //$posts = Post::all();
-        $posts = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->select(DB::raw('post.id, post.title, post.typePost, post.status, animals.name AS animalNome'))->get();
+        $posts = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description, animals.name AS animalNome'))->get();
         $animals = Animals::all();
         $nameUserAuth = Auth::user()->name;
         return View::make('posts')->with(compact('nameUserAuth'))->with(compact('animals'))->with(compact('posts'));
@@ -34,7 +34,7 @@ class PostController extends Controller
             $newPost->idUser = Auth::user()->id;
             $newPost->save();
 
-            return redirect('postagens');
+            return redirect('postagens')->with('msg', 'Post cadastrado!');
         }
         elseif ($method == "GET") {
             return View::make('Post.create');
@@ -57,7 +57,7 @@ class PostController extends Controller
             $postUpdate->status = $request['statusPost'];
             $newPost->save();
 
-            return "Update Realizado com Sucesso!";
+            return redirect('postagens')->with('msg', 'Post atualizado!');
         }
         elseif ($method == "GET") {
             return view('Post.update');

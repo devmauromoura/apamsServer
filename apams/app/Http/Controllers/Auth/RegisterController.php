@@ -46,7 +46,7 @@ class RegisterController extends Controller
     public function register(Request $request){
         $data = $request->all();
         $method = $request->method();
-        
+
         if($method == 'POST'){
             $validatedData = Validator::make($request->all(), [
                 'nameProfile' => 'required',
@@ -55,11 +55,11 @@ class RegisterController extends Controller
                 'typeAccount' => 'required',
             ]);
             if ($validatedData->fails()) {
-                return "Envie os dados corretamente!";
+                return redirect()->back()->with('msg', 'Envie os dados corretamente!');
             }
             else {
                 if(User::where('email', $data['emailProfile'])->exists()){
-                    return "Usuário já cadastrado";
+                    return redirect()->back()->with('msg', 'E-mail já cadastrado!');
                 }
                 else {
                     $registerUser = new User;
@@ -68,8 +68,8 @@ class RegisterController extends Controller
                     $registerUser->password = Hash::make($data['passProfile']);
                     $registerUser->typeAccount = $data['typeAccount'];
                     $registerUser->save();
-                    
-                    return redirect()->back()->with('msg', 'cadastro realizado com sucesso');
+
+                    return redirect()->back()->with('msg', 'Usuário cadastrado!');
                 }
             }
         }
@@ -83,7 +83,7 @@ class RegisterController extends Controller
 
     protected function activeaccount($id){
         $user = User::find($id);
-        $user->activeAccount = 1; 
+        $user->activeAccount = 1;
         $user->save();
 
         //Enviar e-mail de confirmação.
@@ -92,7 +92,7 @@ class RegisterController extends Controller
     }
 
     protected function registerApi(Request $data)
-    {   
+    {
         if(User::where('email', $data['email'])->exists()){
             return response()->json(['return'=>'usuario ja cadastrado'],403);
         }

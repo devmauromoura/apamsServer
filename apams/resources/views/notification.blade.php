@@ -8,7 +8,14 @@
       <h1><i class="fas fa-bell"></i>Notificações</h1>
       <h5 class="subtitle">Notificações para os clientes</h5>
     </div>
-
+    @if(session()->has('msg'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ session()->get('msg') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <div class="article">
       <div class="title-tab">
         <h2>Notificações</h2>

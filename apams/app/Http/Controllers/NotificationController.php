@@ -17,20 +17,20 @@ class NotificationController extends Controller
 		//$dataNotification = Notification::all();
 		$dataNotification = DB::table('notification')->leftJoin('sponsor','idPatrocinador','=','sponsor.id')->select(DB::raw('notification.id,  notification.title, notification.description, notification.status, sponsor.name AS sname'))->get();
 		$dataSponsors = Sponsors::all();
-		
-		return View::make('notification')->with(compact('dataNotification'))->with(compact('nameUserAuth'))->with(compact('dataSponsors'));	
+
+		return View::make('notification')->with(compact('dataNotification'))->with(compact('nameUserAuth'))->with(compact('dataSponsors'));
 	}
 
 	protected function create(Request $request){
 		$dataUpdate = $request->all();
 		$notif = new Notification;
-		$notif->title = $dataUpdate['tituloNot']; 
+		$notif->title = $dataUpdate['tituloNot'];
 		$notif->description = $dataUpdate['descriptionNot'];
 		$notif->idPatrocinador = $dataUpdate['patroNot'];
 		$notif->status = $dataUpdate['statusNot'];
 		$notif->save();
 
-		return redirect('notificacoes');
+		return redirect('notificacoes')->with('msg', 'Notificação cadastrada!');
 	}
 
 

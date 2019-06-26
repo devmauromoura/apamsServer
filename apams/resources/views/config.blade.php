@@ -7,7 +7,14 @@
       <h1><i class="fas fa-cog"></i>Configurações</h1>
       <h5 class="subtitle">Cadastramento de informações</h5>
     </div>
-
+    @if(session()->has('msg'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ session()->get('msg') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <div class="article">
 
       <ul class="nav nav-tabs" id="tabConfig" role="tablist">
@@ -209,9 +216,9 @@
                   @if($usuario->typeAccount == 0)
                   <td class="resp-table">Comum</td>
                   @elseif($usuario->typeAccount == 1)
-                  <td class="resp-table">Moderador</td>                  
+                  <td class="resp-table">Moderador</td>
                   @else
-                  <td class="resp-table">Adminsitrador</td>                  
+                  <td class="resp-table">Adminsitrador</td>
                   @endif
                   <td><i class="fas fa-edit" data-toggle="modal" data-target="#editarProfile" title="Editar"></i></td>
                   <td><i class="fas fa-trash-alt" data-toggle="modal" data-target="#removerProfile" title="Remover"></i>
@@ -249,7 +256,7 @@
             <div class="form-group col-md-6">
               <label>Imagem Patrocínio</label>
               <input type="file" class="form-control-file" name="image" id="logoPatrocinio">
-            </div>            
+            </div>
             <button type="submit" class="btn">Salvar</button>
           </form>
           <hr>
@@ -496,7 +503,7 @@
             </div>
             <div class="form-group">
               <label>Celular</label>
-              <input type="text" class="form-control celNum" id="celPatrocinador" placeholder="(xx) xxxxx-xxxx">
+              <input type="text" class="form-control celNum" name="celPatrocinador" id="celPatrocinador" placeholder="(xx) xxxxx-xxxx">
             </div>
             <button type="submit" class="btn btn-block btn-modal">Salvar</button>
             <button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Sair</button>

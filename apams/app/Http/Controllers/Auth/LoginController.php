@@ -87,7 +87,7 @@ class LoginController extends Controller
                 'refresh_token' => $user->refreshToken,
                 'expires_in'    => $user->expiresIn,
                 'typeAccount' => 0,
-                'activeAccount' => 1,
+                'activeAccount' => 0,
             ]);
 
         auth()->login($loginUser, false);
@@ -107,7 +107,7 @@ class LoginController extends Controller
         if(Auth::check()){
             return redirect('home');
         }else{
-            return View::make('Auth\login');    
+            return View::make('Auth\login');
         }
     }
 
@@ -116,20 +116,20 @@ class LoginController extends Controller
                 if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
                     return redirect('home');
                 }else{
-                    return "Usuario/Senha incorretos, tente novamente";
+                   return redirect('/')->with('error', 'Verifique suas credenciais!');
                     }
     }
 
     protected function loginapi(Request $request){
         if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
             $user = Auth::user();
-            $token['token'] =  $user->createToken('token'.$user->id)->accessToken; 
-            
+            $token['token'] =  $user->createToken('token'.$user->id)->accessToken;
+
             return response()->json(['return' => 'Login efetuado com sucesso', 'token' => $token,'cellphone' => $user->cellphone], 200);
         }else{
             return response()->json(['return' => 'Falha, verifique suas credenciais e tente novamente.'], 401);
             //return response()->json(['return'=> $request->all()]);
         }
     }
-    
+
 }

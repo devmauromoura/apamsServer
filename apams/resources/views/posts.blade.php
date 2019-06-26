@@ -7,7 +7,14 @@
       <h1><i class="fas fa-th-list"></i>Postagens</h1>
       <h5 class="subtitle">Postagens de publicações</h5>
     </div>
-
+    @if(session()->has('msg'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ session()->get('msg') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <div class="article">
       <div class="title-tab">
         <h2>Postagens</h2>
@@ -70,7 +77,7 @@
               @else
               <td>Adotado</td>
               @endif
-              <td class="resp-table">Thanos e um vira-lata da cor preta e porte médio, muito brincalhão...</td>
+              <td class="resp-table">{{$post->description}}</td>
               <td><i class="fas fa-trash-alt" data-toggle="modal" data-target="#removerPost" title="Remover"></i>
               </td>
             </tr>
