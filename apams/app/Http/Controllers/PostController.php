@@ -83,10 +83,17 @@ class PostController extends Controller
         return response()->json(['return' => $dataPost], 200);
     }
 
+    protected function showPost($id){
+        $dataPost = $dataPost = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->leftJoin('like_post','post.id','=','like_post.idPost')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description, animals.id AS animalId,animals.name AS animalName, count(like_post.idPost) AS likes'))->orderBy('post.created_at', 'desc')->groupBy('post.id','post.title','post.typePost','post.status','post.description','animalId','animalName')->where('post.id', $id)->get();
+
+        return response()->json(['return' => $dataPost], 200);        
+    }
+
+
     protected function likePost(Request $request){
         $dataLike =  $request['idPost'];
         
-        if (LikePost::find($dataLike)){
+        if (LikePost::where('idPost',$dataLike)->where('idUser', Auth::user()->id)->exists()){
             return response()->json(['return' => 'Você já curtiu!'], 200);
         }else {
             $regLike = new LikePost;
