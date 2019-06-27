@@ -101,8 +101,7 @@ class RegisterController extends Controller
             $register->name = $data['name'];
             $register->email = $data['email'];
             $register->password = Hash::make($data['password']);
-            $register->cellphone = $data['cellphone'];
-            $register->typeAccount = $data['typeAccount'];
+            $register->typeAccount = 0;
             $register->save();
             return response()->json(['return'=>'cadastro realizado com sucesso'],200);
         }

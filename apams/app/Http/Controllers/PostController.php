@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use ApamsServer\Post;
 use ApamsServer\Animals;
 use ApamsServer\User;
+use ApamsServer\LikePost;
 use Auth;
 use View;
 use DB;
@@ -74,4 +75,28 @@ class PostController extends Controller
 
         return "Post removido com sucesso!";
     }
+
+    // Rotas API
+
+    public function showApi(){
+        $dataPost = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->leftJoin('like_post','post.id','=','like_post.idPost')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description, animals.id AS animalId,animals.name AS animalName, count(like_post.idPost) AS likes'))->orderBy('post.created_at', 'desc')->groupBy('post.id','post.title','post.typePost','post.status','post.description','animalId','animalName')->get();
+        return response()->json(['return' => $dataPost], 200);
+    }
+
+    protected function likePost(Request $request){
+        $dataLike =  $request['idPost'];
+        
+        if (LikePost::find($dataLike)){
+            return response()->json(['return' => 'Você já curtiu!'], 200);
+        }else {
+            $regLike = new LikePost;
+            $regLike->idPost = $dataLike;
+            $regLike->idUser = Auth::user()->id;
+            $regLike->save();
+        
+            return response()->json(['return' => 'Curtida registrada!'], 401);
+        }
+    }
+
+
 }

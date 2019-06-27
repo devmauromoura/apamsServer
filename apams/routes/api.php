@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,13 +19,19 @@ Route::post('/register', 'Auth\RegisterController@registerApi'); //Cadastrar Usu
 Route::post('/login','Auth\LoginController@loginapi');
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::prefix('/user/profile')->group(function(){
-        Route::get('/show', function(){
-            return Auth::user();
-        } );
-        Route::post('/update', 'UserController@updateUser');
+    Route::prefix('/user')->group(function(){
+        Route::get('/profile','UserController@showProfile');
     });
+        Route::post('/update', 'UserController@updateUser');
+
     Route::prefix('/animals')->group(function(){
         Route::get('/show','AnimalsController@show');
+        Route::get('/show/{id}','AnimalsController@showAnimal');
     });
+
+    Route::prefix('/posts')->group(function(){
+        Route::get('/show','PostController@showApi');
+        Route::post('/like','PostController@likePost');
+    });
+
 });

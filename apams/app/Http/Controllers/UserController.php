@@ -51,4 +51,9 @@ class UserController extends Controller
 
         return View::make('User.list');
     }
+        // Rotas APi
+    public function showProfile(){
+        $dataUser = Auth::user()->only(['name','email','activeAccount','cellphone']);
+        return response()->json(['return'=> $dataUser], 200);
+    }
 }

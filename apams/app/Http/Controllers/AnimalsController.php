@@ -91,4 +91,19 @@ class AnimalsController extends Controller
         return "Animal Removido!";
     }
 
+    //Funções para API
+
+    public function show(){
+        $dataAnimals = Animals::all();
+
+        return response()->json(['return'=> $dataAnimals], 200);
+    }
+
+    protected function showAnimal($id){
+        $dataAnimal = Animals::find($id);
+        
+        return response()->json(['return'=> $dataAnimal], 200);
+    }
+
+
 }

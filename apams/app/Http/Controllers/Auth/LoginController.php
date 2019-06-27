@@ -4,7 +4,6 @@ namespace ApamsServer\Http\Controllers\Auth;
 
 use ApamsServer\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
 use Socialite;
 use ApamsServer\User;
 use Auth;

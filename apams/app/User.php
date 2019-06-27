@@ -6,11 +6,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Revolution\Google\Photos\Traits\PhotosLibrary;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use PhotosLibrary;
+    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
