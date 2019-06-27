@@ -39,10 +39,8 @@ class AnimalsController extends Controller
             $baseUrl = $media;
             $urlSave = $baseUrl->baseUrl;
 
-            //dd($urlSave);
-
             $newAnimal->avatarUrl = $urlSave;
-
+            $newAnimal->avatarId = $dadosUpload;
             $newAnimal->save();
 
             return redirect()->back()->with('msg', 'Animal Cadastrado!');
@@ -74,6 +72,7 @@ class AnimalsController extends Controller
             $baseUrl = $media;
             $urlSave = $baseUrl->baseUrl;
             $dataUpdate->avatarUrl = $urlSave;
+            $dataUpdate->avatarId = $dadosUpload;
             $dataUpdate->save();
 
             return redirect('configuracoes')->with('msg', 'Animal atualizado com sucesso!');

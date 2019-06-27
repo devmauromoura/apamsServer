@@ -79,14 +79,14 @@ class PostController extends Controller
     // Rotas API
 
     public function showApi(){
-        $dataPost = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->leftJoin('like_post','post.id','=','like_post.idPost')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description, animals.id AS animalId,animals.name AS animalName, count(like_post.idPost) AS likes'))->orderBy('post.created_at', 'desc')->groupBy('post.id','post.title','post.typePost','post.status','post.description','animalId','animalName')->get();
-        return response()->json(['return' => $dataPost], 200);
+        $dataPost = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->leftJoin('like_post','post.id','=','like_post.idPost')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description, animals.id AS animalId,animals.name AS animalName, animals.avatarUrl as avatarAnimal, count(like_post.idPost) AS likes'))->orderBy('post.created_at', 'desc')->groupBy('post.id','post.title','post.typePost','post.status','post.description','animalId','animalName','avatarAnimal')->get();
+        return response()->json($dataPost);
     }
 
     protected function showPost($id){
         $dataPost = $dataPost = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->leftJoin('like_post','post.id','=','like_post.idPost')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description, animals.id AS animalId,animals.name AS animalName, count(like_post.idPost) AS likes'))->orderBy('post.created_at', 'desc')->groupBy('post.id','post.title','post.typePost','post.status','post.description','animalId','animalName')->where('post.id', $id)->get();
 
-        return response()->json(['return' => $dataPost], 200);        
+        return response()->json($dataPost);        
     }
 
 

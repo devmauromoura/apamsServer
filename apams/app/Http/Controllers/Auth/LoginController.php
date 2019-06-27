@@ -87,6 +87,7 @@ class LoginController extends Controller
                 'expires_in'    => $user->expiresIn,
                 'typeAccount' => 0,
                 'activeAccount' => 0,
+                'google' => 1,
             ]);
 
         auth()->login($loginUser, false);
@@ -122,9 +123,10 @@ class LoginController extends Controller
     protected function loginapi(Request $request){
         if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
             $user = Auth::user();
-            $token['token'] =  $user->createToken('token'.$user->id)->accessToken;
+            $token =  $user->createToken('token'.$user->id)->accessToken;
 
-            return response()->json(['return' => 'Login efetuado com sucesso', 'token' => $token,'cellphone' => $user->cellphone], 200);
+            //return response()->json($token);
+            return response()->json(['return' => 'Login efetuado com sucesso', 'token'=> $token,'cellphone' => $user->cellphone], 200);
         }else{
             return response()->json(['return' => 'Falha, verifique suas credenciais e tente novamente.'], 401);
             //return response()->json(['return'=> $request->all()]);

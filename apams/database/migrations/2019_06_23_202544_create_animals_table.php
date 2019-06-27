@@ -20,7 +20,8 @@ class CreateAnimalsTable extends Migration
             $table->string('type')->nullable();  
             $table->string('adopted')->default('0'); // 0 - Aguardando adoção   1-Em processo de adoção   2-Adotado
             $table->longText('description');
-            $table->string('avatarUrl', 3000)->default('exampleUrl');
+            $table->string('avatarUrl', 3000)->default('avatarUrl');
+            $table->string('avatarId', 3000)->default('avatarId');
             $table->timestamps();
         });
     }
