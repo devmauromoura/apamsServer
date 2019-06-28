@@ -113,7 +113,7 @@
       });
     });
 $(document).ready(function () {
-      $('#listPost').DataTable({
+      $('#listPostt').DataTable({
         "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
         "ordering": false,
         "language": {

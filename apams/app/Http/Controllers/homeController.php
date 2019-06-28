@@ -36,7 +36,7 @@ class HomeController extends Controller
         $totalCat = Animals::where('type','Gato')->count();
         $totalDog = Animals::where('type','Cachorro')->count();
         $totalAdopted = Animals::where('adopted','2')->count();
-        $totalNoAdopted = Animals::where('adopted','<=','2')->count();
+        $totalNoAdopted = Animals::where('adopted','<=','1')->count();
         $totalSponsors = Sponsors::count();
         $totalUsers = User::count();
         $nameUserAuth = Auth::user()->name;
