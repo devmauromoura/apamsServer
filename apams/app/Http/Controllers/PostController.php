@@ -90,18 +90,18 @@ class PostController extends Controller
     }
 
 
-    protected function likePost(Request $request){
-        $dataLike =  $request['idPost'];
+    protected function likePost($id){
+        $dataLike =  $id;
         
         if (LikePost::where('idPost',$dataLike)->where('idUser', Auth::user()->id)->exists()){
-            return response()->json(['return' => 'Você já curtiu!'], 200);
+            return response()->json('Você já curtiu!');
         }else {
             $regLike = new LikePost;
             $regLike->idPost = $dataLike;
             $regLike->idUser = Auth::user()->id;
             $regLike->save();
         
-            return response()->json(['return' => 'Curtida registrada!'], 401);
+            return response()->json('Curtida registrada!');
         }
     }
 

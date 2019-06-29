@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::prefix('/posts')->group(function(){
         Route::get('/show','PostController@showApi');
         Route::get('/show/{id}','PostController@showPost');
-        Route::post('/like','PostController@likePost');
+        Route::get('/like/{id}','PostController@likePost');
     });
 
 });

@@ -21,7 +21,7 @@ Route::prefix('/auth')->group(function () {
 
 #ROTA PARA VALIDAR LOGIN E SAIR
 Route::post('/login','Auth\LoginController@login');
-//Route::get('/sair', function(){ Auth::logout(); return redirect(''); });
+Route::get('/sair', function(){ Auth::logout(); return redirect(''); });
 
 
 # ROTAS COM MIDDLEWARE AUTH, OU SEJA, ACESSIVEIS SOMENTE COM AUTENTICAÇÃO
