@@ -11,7 +11,7 @@
 
 
 # ROTA PARA TELA DE LOGIN
-Route::get('/','Auth\LoginController@index')->name('index');
+Route::get('/','AuthLoginController@index')->name('index');
 
 Route::get('callback', 'Auth\LoginController@callback');
 Route::prefix('/auth')->group(function () {
@@ -21,7 +21,7 @@ Route::prefix('/auth')->group(function () {
 
 #ROTA PARA VALIDAR LOGIN E SAIR
 Route::post('/login','Auth\LoginController@login');
-Route::get('/sair', function(){ Auth::logout(); return redirect(''); });
+//Route::get('/sair', function(){ Auth::logout(); return redirect(''); });
 
 
 # ROTAS COM MIDDLEWARE AUTH, OU SEJA, ACESSIVEIS SOMENTE COM AUTENTICAÇÃO

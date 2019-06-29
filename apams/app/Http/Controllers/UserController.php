@@ -40,7 +40,7 @@ class UserController extends Controller
         $updateUser->cellphone = $request['cellphone'];
         $updateUser->save();
 
-        return response()->json(['return'=>'Cadastro atualizado com sucesso'], 200);
+        return response()->json(['Cadastro atualizado com sucesso'], 200);
         //return response()->json(['return' => Auth::user()->id]);
     }
 
@@ -54,6 +54,6 @@ class UserController extends Controller
         // Rotas APi
     public function showProfile(){
         $dataUser = Auth::user()->only(['name','email','activeAccount','cellphone']);
-        return response()->json(['return'=> $dataUser], 200);
+        return response()->json([$dataUser], 200);
     }
 }
