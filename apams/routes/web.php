@@ -11,7 +11,7 @@
 
 
 # ROTA PARA TELA DE LOGIN
-Route::get('/','AuthLoginController@index')->name('index');
+Route::get('/','Auth\LoginController@index')->name('index');
 
 Route::get('callback', 'Auth\LoginController@callback');
 Route::prefix('/auth')->group(function () {
