@@ -61,10 +61,8 @@ class ConfiguracoesController extends Controller
     }
 
     public function show(){
-         $this->access();
-
+        //$this->access();
         //$this->convert();
-
         $animal = Animals::all();
         $animalCount = Animals::count();
         $users = User::all();
