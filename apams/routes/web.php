@@ -76,3 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::view('upload', 'form')->name('form');
     Route::name('upload')->post('upload', 'UploadController');
 });
+
+
+// ROTAS PARA TESTES DE DESENVOLVIMENTO
+Route::get('/google/getaccesstoken','TestesController@getat');
