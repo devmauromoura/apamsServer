@@ -7,6 +7,7 @@ use ApamsServer\Animals;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AnimalsController extends Controller
 {
@@ -27,20 +28,12 @@ class AnimalsController extends Controller
             $newAnimal->adopted = $dataAnimal['adopted'];
             $newAnimal->description = $dataAnimal['description'];
 
-            $photos = $request->user()->photos();
             $file = $request->file('image');
             $path = $file->path(); #Pega o caminho temporario da img
             $extension = $file->extension(); # Peaga a extensão do arquivo
             $converted = Str::kebab($file->getClientOriginalName());
-            $uploadToken = $photos->upload($converted, fopen($path, 'r'));
-            $result = $photos->batchCreate([$uploadToken]);
-            $dadosUpload = $result->newMediaItemResults['0']->mediaItem->id;
-            $media = $request->user()->photos()->media($dadosUpload);
-            $baseUrl = $media;
-            $urlSave = $baseUrl->baseUrl;
-
-            $newAnimal->avatarUrl = $urlSave;
-            $newAnimal->avatarId = $dadosUpload;
+            $url = $request->file('image')->store('animais');
+            $newAnimal->avatarUrl = 'http://localhost:8080/storage/'.$url;
             $newAnimal->save();
 
             return redirect()->back()->with('msg', 'Animal Cadastrado!');
@@ -60,19 +53,13 @@ class AnimalsController extends Controller
             $dataUpdate->description = $animalUpdate['descriptionAnimal'];
             $dataUpdate->adopted = $animalUpdate['adoptedAnimal'];
 
-            $photos = $request->user()->photos();
             $file = $request->file('image');
             $path = $file->path(); #Pega o caminho temporario da img
             $extension = $file->extension(); # Peaga a extensão do arquivo
             $converted = Str::kebab($file->getClientOriginalName());
-            $uploadToken = $photos->upload($converted, fopen($path, 'r'));
-            $result = $photos->batchCreate([$uploadToken]);
-            $dadosUpload = $result->newMediaItemResults['0']->mediaItem->id;
-            $media = $request->user()->photos()->media($dadosUpload);
-            $baseUrl = $media;
-            $urlSave = $baseUrl->baseUrl;
-            $dataUpdate->avatarUrl = $urlSave;
-            $dataUpdate->avatarId = $dadosUpload;
+
+            $url = $request->file('image')->store('animais');
+            $dataUpdate->avatarUrl = 'http://localhost:8080/storage/'.$url;
             $dataUpdate->save();
 
             return redirect('configuracoes')->with('msg', 'Animal atualizado com sucesso!');

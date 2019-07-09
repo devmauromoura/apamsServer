@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use ApamsServer\Sponsors;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 
 class SponsorsController extends Controller
@@ -16,18 +17,12 @@ class SponsorsController extends Controller
         $registerData->name = $sponsorData['namePatrocinio'];
         $registerData->email = $sponsorData['emailPatrocinio'];
         $registerData->cellphone = $sponsorData['celPatrocinio'];
-        $photos = $request->user()->photos();
+
         $file = $request->file('image');
         $path = $file->path(); #Pega o caminho temporario da img
         $extension = $file->extension(); # Peaga a extensão do arquivo
-        $converted = Str::kebab($file->getClientOriginalName());
-        $uploadToken = $photos->upload($converted, fopen($path, 'r'));
-        $result = $photos->batchCreate([$uploadToken]);
-        $dadosUpload = $result->newMediaItemResults['0']->mediaItem->id;
-        $media = $request->user()->photos()->media($dadosUpload);
-        $baseUrl = $media;
-        $urlSave = $baseUrl->baseUrl;
-        $registerData->logoTypeUrl = $urlSave;//$sponsorData['logoTypeUrl'];
+        $url = $request->file('image')->store('patrocinadores');
+        $registerData->logoTypeUrl = 'http://localhost:8080/storage/'.$url;
         $registerData->save();
 
         return redirect('/configuracoes')->with('msg', 'Patrocinador Cadastrado!');

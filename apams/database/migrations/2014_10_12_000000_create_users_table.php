@@ -27,7 +27,6 @@ class CreateUsersTable extends Migration
             $table->string('avatarUrl')->default('example');
             $table->boolean('activeAccount')->default(0);   // 0 - Não tivo   1 - Ativo
             $table->boolean('typeAccount')->default(0);  // 0 - Usuário normal, 1 - Usuário Moderador, 2 - Usuário Administrador.
-            $table->boolean('google')->default(0);
             $table->timestamps();
         });
 

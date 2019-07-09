@@ -40,15 +40,15 @@ Route::group(['middleware' => 'auth'], function(){
     // ROTAS DE ANIMAIS
     Route::prefix('/animais')->group(function(){
         Route::get('/','AnimalsController@showWeb');
-        Route::match(['get', 'post'], '/cadastro', 'AnimalsController@registerWeb')->middleware('check.google');
-        Route::match(['get', 'post'],'/update', 'AnimalsController@updateWeb')->middleware('check.google');
+        Route::match(['get', 'post'], '/cadastro', 'AnimalsController@registerWeb');
+        Route::match(['get', 'post'],'/update', 'AnimalsController@updateWeb');
         Route::post('/delete', 'AnimalsController@registerWeb');
     });
 
     // ROTAS DE PATROCINADORES
     Route::prefix('/patrocinadores')->group(function(){
-        Route::post('/cadastrar', 'SponsorsController@register')->middleware('check.google');
-        Route::post('/atualizar', 'SponsorsController@update')->middleware('check.google');
+        Route::post('/cadastrar', 'SponsorsController@register');
+        Route::post('/atualizar', 'SponsorsController@update');
     });
 
     // ROTAS DE POSTAGENS

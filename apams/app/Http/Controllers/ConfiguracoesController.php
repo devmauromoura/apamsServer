@@ -8,6 +8,7 @@ use ApamsServer\User;
 use ApamsServer\Sponsors;
 use Auth;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 
 class ConfiguracoesController extends Controller
 

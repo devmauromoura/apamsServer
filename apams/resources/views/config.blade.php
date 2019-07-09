@@ -72,7 +72,7 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <input type="file" id="fileElem" name="image" onchange="handleFiles(this.files)">
+              <input type="file" id="fileElem" name="image" onchange="handleFiles(this.files)" required>
               <a href="#" id="fileSelect"><span class="badge badge-primary">Selecione a imagem</span></a>
               <div id="fileList">
                 <p>Nenhum arquivo selecionado</p>
@@ -123,7 +123,7 @@
                   <th scope="row">{{$animais->id}}</th>
                   <td class="resp-table">
                     <div class="avatar-list">
-                      <img src="{{$animais->avatarUrl}}" alt="Avatar" height="50px;">
+                      <img src="{{$animais->avatarUrl}}" alt="Avatar" height="50px;" require>
                     </div>
                   </td>
                   <td>{{$animais->name}}</td>
@@ -255,7 +255,7 @@
             <div class="form-group col-md-6"></div>
             <div class="form-group col-md-6">
               <label>Imagem Patrocínio</label>
-              <input type="file" class="form-control-file" name="image" id="logoPatrocinio">
+              <input type="file" class="form-control-file" name="image" id="logoPatrocinio" required>
             </div>
             <button type="submit" class="btn">Salvar</button>
           </form>
@@ -355,7 +355,7 @@
             </div>
             <div class="form-group">
               <label>Selecione a imagem</label>
-              <input type="file" name="image"  id="fileElemModal">
+              <input type="file" name="image"  id="fileElemModal" required>
             </div>
             <div class="form-group">
               <label for="description">Descrição</label>
