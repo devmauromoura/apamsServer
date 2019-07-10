@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use ApamsServer\Http\Requests\RegisterUser;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Mail;
+use ApamsServer\Mail\cadastroApi;
 
 class RegisterController extends Controller
 {
@@ -103,7 +105,12 @@ class RegisterController extends Controller
             $register->password = Hash::make($data['password']);
             $register->typeAccount = 0;
             $register->save();
-            return response()->json(['return'=>'cadastro realizado com sucesso'],200);
+
+            $userData = User::where('email', $data['email'])->first();
+
+           Mail::to($data['email'])->send(new cadastroApi($userData));
+
+           return response()->json(['cadastro realizado com sucesso'],200);
         }
     }
 }

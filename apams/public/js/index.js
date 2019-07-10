@@ -212,7 +212,7 @@ function removerSuccess() {
 var rIndexAnimais, tableAnimais = document.getElementById("tabelaAnimais");
 
 function selectedRowToInput() {
-  for (var i = 1; i < tableAnimais.rows.length; i++) {
+  for (var i = 0; i < tableAnimais.rows.length; i++) {
     tableAnimais.rows[i].onclick = function () {
       rIndexAnimais = this.rowIndex;
       document.getElementById("idAnimal").value = this.cells[0].innerHTML;
@@ -231,15 +231,15 @@ function editHtmlTbleSelectedRow() {
     nomeAnimal = document.getElementById("nameAnimal").value,
     porteAnimal = document.getElementById("porteAnimal").value,
     tipoAnimal = document.getElementById("typeAnimal").value;
-  statusAnimal = document.getElementById("adoptedAnimal").value;
-  sobreAnimal = document.getElementById("descriptionAnimal").value;
+    statusAnimal = document.getElementById("adoptedAnimal").value;
+    sobreAnimal = document.getElementById("descriptionAnimal").value;
   if (!checkEmptyInput()) {
     tableAnimais.rows[rIndexAnimais].cells[0].innerHTML = idAnimal;
     tableAnimais.rows[rIndexAnimais].cells[1].innerHTML = nomeAnimal;
     tableAnimais.rows[rIndexAnimais].cells[2].innerHTML = porteAnimal;
     tableAnimais.rows[rIndexAnimais].cells[3].innerHTML = tipoAnimal;
-    tableAnimais.rows[rIndexAnimais].cells[3].innerHTML = statusAnimal;
-    tableAnimais.rows[rIndexAnimais].cells[3].innerHTML = sobreAnimal;
+    tableAnimais.rows[rIndexAnimais].cells[4].innerHTML = statusAnimal;
+    tableAnimais.rows[rIndexAnimais].cells[5].innerHTML = sobreAnimal;
   }
 }
 
