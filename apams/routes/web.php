@@ -16,7 +16,7 @@ Route::get('/','Auth\LoginController@index')->name('index');
 Route::get('callback', 'Auth\LoginController@callback');
 Route::prefix('/auth')->group(function () {
     Route::get('google', 'Auth\LoginController@redirect');
-    Route::name('logout')->post('logout', 'LoginController@logout');
+    Route::name('logout')->post('logout', 'Auth\LoginController@logout');
 });
 
 #ROTA PARA VALIDAR LOGIN E SAIR
