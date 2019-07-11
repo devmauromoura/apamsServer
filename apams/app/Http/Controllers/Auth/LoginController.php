@@ -107,7 +107,7 @@ class LoginController extends Controller
         if(Auth::check()){
             return redirect('home');
         }else{
-            return View::make('auth\login');
+            return View::make('Auth\login');
         }
     }
 
