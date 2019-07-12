@@ -95,7 +95,7 @@ class LoginController extends Controller
         return redirect('/home');
     }
 
-    public function logout()
+    public function sair()
     {
         auth()->logout();
 

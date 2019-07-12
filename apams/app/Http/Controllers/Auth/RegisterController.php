@@ -108,7 +108,7 @@ class RegisterController extends Controller
 
             $userData = User::where('email', $data['email'])->first();
 
-           Mail::to($data['email'])->send(new cadastroApi($userData));
+            Mail::to($data['email'])->send(new cadastroApi($userData));
 
            return response()->json(['cadastro realizado com sucesso'],200);
         }
