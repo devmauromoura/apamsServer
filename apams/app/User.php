@@ -47,6 +47,9 @@ class User extends Authenticatable
         'updated_at',
     ];
 
+    protected $casts = [
+        'data' => 'array',
+   ];
     /**
      * Get the Access Token
      *

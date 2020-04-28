@@ -93,10 +93,11 @@ class RegisterController extends Controller
         return response()->json(['return'=>'Cadastro ativado com sucesso.'], 200);
     }
 
-    protected function registerApi(Request $data)
+    protected function registerApi(Request $request)
     {
+        $data = $request->all();
         if(User::where('email', $data['email'])->exists()){
-            return response()->json(['return'=>'usuario ja cadastrado'],403);
+            return response()->json(['msg'=>'E-mail ja cadastrado.'], 400);
         }
         else{
             $register = new User;
@@ -108,7 +109,7 @@ class RegisterController extends Controller
 
             $userData = User::where('email', $data['email'])->first();
 
-            Mail::to($data['email'])->send(new cadastroApi($userData));
+            //  Mail::to($data['email'])->send(new cadastroApi($userData));
 
            return response()->json(['cadastro realizado com sucesso'],200);
         }
