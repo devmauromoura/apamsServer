@@ -54,6 +54,6 @@ class UserController extends Controller
         // Rotas APi
     public function showProfile(){
         $dataUser = Auth::user()->only(['name','email','activeAccount','cellphone']);
-        return response()->json([$dataUser], 200);
+        return response()->json(['status' => 'success', 'msg' => $dataUser], 200);
     }
 }

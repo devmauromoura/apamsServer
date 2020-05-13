@@ -20,7 +20,8 @@ class CreatePostTable extends Migration
             $table->string('description');
             $table->integer('typePost'); // 0 Adoção
             $table->boolean('status')->default(0); // 0 - Aguardando Adoção | 1 - Adotado
-            $table->integer('idUser');            
+            $table->integer('idUser');     
+            $table->longText('cover')->nullable();       
             $table->timestamps();
         });
     }

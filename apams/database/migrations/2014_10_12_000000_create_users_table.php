@@ -29,16 +29,6 @@ class CreateUsersTable extends Migration
             $table->boolean('typeAccount')->default(0);  // 0 - Usuário normal, 1 - Usuário Moderador, 2 - Usuário Administrador.
             $table->timestamps();
         });
-
-        $admin = new User;
-        $admin->name = "Administrador Apams";
-        $admin->email = "admin@apams.com.br";
-        $admin->password =  Hash::make("159357ads@");
-        $admin->cellphone = "6666666666";
-        $admin->avatarUrl = "apams";
-        $admin->activeAccount = 1;
-        $admin->typeAccount = 2;
-        $admin->save();
     }
 
     /**
