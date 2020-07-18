@@ -4,8 +4,7 @@ namespace ApamsServer;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CommentPost extends Model
+class Settings extends Model
 {
-    protected $table = "post_comments";
-
+    //
 }

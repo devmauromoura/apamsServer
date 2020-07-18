@@ -15,7 +15,7 @@ class PostController extends Controller
 {
     public function show(){
         //$posts = Post::all();
-        $posts = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description, animals.name AS animalNome'))->get();
+        $posts = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->select(DB::raw('post.id, post.title, post.description, animals.name AS animalNome'))->get();
         $animals = Animals::all();
         $nameUserAuth = Auth::user()->name;
         return View::make('posts')->with(compact('nameUserAuth'))->with(compact('animals'))->with(compact('posts'));
@@ -75,35 +75,4 @@ class PostController extends Controller
 
         return "Post removido com sucesso!";
     }
-
-    // Rotas API
-
-    public function showApi(){
-        $dataPost = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->leftJoin('like_post','post.id','=','like_post.idPost')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description,post.created_at AS data, animals.id AS animalId,animals.name AS animalName, animals.avatarUrl as avatarAnimal, count(like_post.idPost) AS likes'))->orderBy('post.created_at', 'desc')->groupBy('post.id','post.title','post.typePost','post.status','post.description','animalId','animalName','avatarAnimal','post.created_at')->get();
-        return response()->json($dataPost);
-    }
-
-    protected function showPost($id){
-        $dataPost = $dataPost = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->leftJoin('like_post','post.id','=','like_post.idPost')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description, animals.id AS animalId,animals.name AS animalName, count(like_post.idPost) AS likes'))->orderBy('post.id', 'desc')->groupBy('post.id','post.title','post.typePost','post.status','post.description','animalId','animalName')->where('post.id', $id)->get();
-
-        return response()->json($dataPost);        
-    }
-
-
-    protected function likePost($id){
-        $dataLike =  $id;
-        
-        if (LikePost::where('idPost',$dataLike)->where('idUser', Auth::user()->id)->exists()){
-            return response()->json('Você já curtiu!');
-        }else {
-            $regLike = new LikePost;
-            $regLike->idPost = $dataLike;
-            $regLike->idUser = Auth::user()->id;
-            $regLike->save();
-        
-            return response()->json('Curtida registrada!');
-        }
-    }
-
-
 }

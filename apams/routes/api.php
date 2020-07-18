@@ -23,15 +23,19 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     //ROTAS PARA ANIMAIS
     Route::prefix('/animals')->group(function(){
-        Route::get('/show','AnimalsController@show');
-        Route::get('/show/{id}','AnimalsController@showAnimal');
+        Route::get('/show','API\AnimalsController@show');
+        Route::get('{id}/show','API\AnimalsController@showAnimal');
+        Route::get('{id}/gallery','API\AnimalsController@gallery');
+        Route::get('/{id}/adopt','API\AnimalsController@adopt');
     });
 
     //ROTAS PARA POSTAGENS
     Route::prefix('/posts')->group(function(){
-        Route::get('/show','PostController@showApi');
-        Route::get('/show/{id}','PostController@showPost');
-        Route::get('/like/{id}','PostController@likePost');
+        Route::get('/show','API\PostController@show');
+        Route::get('/{id}/show','API\PostController@showPost');
+        Route::get('/{id}/like','API\PostController@likePost');
+        Route::get('/{id}/unlike','API\PostController@unlikePost');
+        Route::get('/{id}/comments','API\CommentsController@show');
     });
 
 });
