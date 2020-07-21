@@ -3,6 +3,7 @@
 namespace ApamsServer;
 
 use Illuminate\Database\Eloquent\Model;
+use ApamsServer\User;
 
 class Post extends Model
 {
@@ -10,6 +11,6 @@ class Post extends Model
 
     public function comments()
     {
-         return $this->hasMany('ApamsServer\CommentPost');
+         return $this->hasMany('ApamsServer\CommentPost')->with(['getUser']);
     }
 }

@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:api'], function(){
         Route::get('/{id}/like','API\PostController@likePost');
         Route::get('/{id}/unlike','API\PostController@unlikePost');
         Route::get('/{id}/comments','API\CommentsController@show');
+        Route::post('/{id}/comments/message','API\CommentsController@message');
     });
 
 });
