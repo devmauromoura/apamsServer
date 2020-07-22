@@ -8,22 +8,37 @@ use ApamsServer\Post;
 use ApamsServer\User;
 use ApamsServer\LikePost;
 use Auth;
+use DB;
 
 class PostController extends Controller
 {
 
     public function show(){
-        $Posts = Post::all();
+        $Posts = Post::select('post.id', 'post.title', 'post.description', 'post.created_at', 'post.image', DB::raw('count(like_post.post_id) as likes'))
+                        ->leftJoin('like_post', 'post.id', '=', 'like_post.post_id')
+                        ->groupBy('post.id', 'post.title', 'post.description', 'post.created_at', 'post.image', 'like_post.post_id')
+                        ->get();
+                        
+        $user = Auth::user()->id;
+        $PostLiked = LikePost::select('post_id')->where('user_id', $user)->groupBy('post_id')->get();
+        
+        
+        $data = array(
+            'posts' => $Posts,
+            'likes' => $PostLiked
+        );
+
 
         return response()->json([
             "message" => "Sucesso",
             "status" => true,
-            "data" => $Posts
+            "data" => $data
         ]);
     }
 
 
     public function showPost($id){
+
         $Post = Post::find($id);
         
         return response()->json([
