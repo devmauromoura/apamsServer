@@ -17,7 +17,7 @@ class SettingsController extends Controller
         $settings = $settings::find(1);
         $nameUserAuth = Auth::user()->name;
         $avatarUserAuth = Auth::user()->avatar;
-        return view('posts/posts')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth)->with('dados',$settings);
+        return view('configuracoes/configuracoes')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth)->with('dados',$settings);
     }
 
     public function salvar(Request $request)

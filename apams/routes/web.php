@@ -73,11 +73,7 @@
     // ROTAS DE CONFIGURACOES
         Route::prefix('/configuracoes')->group(function(){
             Route::get('/','SettingsController@index');
-            Route::get('/form/{id?}','SettingsController@formulario')->where(['id' => '[0-9]+']);
             Route::post('/salvar', 'SettingsController@salvar');
-            Route::post('/editar/{id}', 'SettingsController@editar')->where(['id' => '[0-9]+']);
-            Route::get('/remover/{id}', 'SettingsController@remover')->where(['id' => '[0-9]+']);
-            Route::get('/dados','SettingsController@getDados');
         });
     // ROTAS DE CONFIGURACOES
 

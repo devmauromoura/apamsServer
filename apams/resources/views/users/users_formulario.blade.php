@@ -18,6 +18,7 @@
 		$patrocinadorC = (in_array("patrocinadorC", $arr)) ? true : false;
 		$patrocinadorE = (in_array("patrocinadorE", $arr)) ? true : false;
 		$patrocinadorR = (in_array("patrocinadorR", $arr)) ? true : false;
+		$configuracaoE = (in_array("configuracaoE", $arr)) ? true : false;
 	}	
 @endphp
 
@@ -161,6 +162,16 @@
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="checkbox" id="del_patrocinador" name="del_patrocinador" value="true" {{ (isset($patrocinadorR)) ? ($patrocinadorR == true) ? "checked" : "" : "" }}>
 						<label class="form-check-label" for="del_patrocinador">Remover</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12"><small>Configurações</small></div>
+				<div class="col-md-3">
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="checkbox" id="edit_configuracao" name="edit_configuracao" value="true" {{ (isset($configuracaoE)) ? ($configuracaoE == true) ? "checked" : "" : "" }}>
+						<label class="form-check-label" for="edit_configuracao">Editar</label>
 					</div>
 				</div>
 			</div>
