@@ -1,3 +1,8 @@
+@php
+	$cadastrar = (in_array("postC", $permissoes)) ? true : false;
+	$editar = (in_array("postE", $permissoes)) ? true : false;
+	$remover = (in_array("postR", $permissoes)) ? true : false;
+@endphp
 @extends('Layouts.app')
 @section('title', 'Postagens')
 @section('conteudo')
@@ -35,9 +40,11 @@
 				<div>
 					<h2>Posts</h2>
 				</div>
+				@if($cadastrar == true)
 				<div>
 					<button type="button" class="btn-default modalcadpost" data-href="{{ url('/postagens/form') }}" data-bodyform="bodyformpost" data-modalname="modalformpost"><i class="fas fa-plus"></i>Novo</button>
 				</div>
+				@endif
 			</div>
 
 			<table class="display responsive nowrap table text-center" id="listPost">
@@ -71,8 +78,12 @@
 					render: function ( data, type, row ) {
 						return `
 								<button type="button" class="btn-detail modalinfopost" data-href="{{ url('/postagens/info') }}/${row.id}" data-bodyform="bodyformpost" data-modalname="modalformpost" title="Comentários"><i class="fas fa-th-list"></i></button>
+								@if($editar == true)
 								<button type="button" class="btn-detail modaleditpost" data-href="{{ url('/postagens/form') }}/${row.id}" data-bodyform="bodyformpost" data-modalname="modalformpost" title="Editar"><i class="fas fa-pencil-alt"></i></button>
-								<button type="button" class="btn-detail modalremovepost" data-href="{{ url('/postagens/remover') }}/${row.id}" title="Remover"><i class="fas fa-trash-alt"></i></button>
+								@endif
+								@if($remover == true)
+								<button type"button" class="btn-detail modalremovepost" data-href="{{ url('/postagens/remover') }}/${row.id}" title="Remover"><i class="fas fa-trash-alt"></i></button>
+								@endif
 							`;
 					} 	
 				}

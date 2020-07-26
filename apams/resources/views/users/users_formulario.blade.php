@@ -229,7 +229,7 @@
 		@isset($dados->id)
 			@if($dados->avatar !== "" && $dados->avatar !== null)
 			preloaded: [
-				{id:{{ $dados->id }}, src:'{{ asset('storage/users_avatar/'.$dados->avatar) }}'},
+				{id:{{ $dados->id }}, src:'{{ asset($dados->avatar) }}'},
 			],
 			@endif
 		@endisset

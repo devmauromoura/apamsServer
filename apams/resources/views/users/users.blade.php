@@ -1,3 +1,8 @@
+@php
+	$cadastrar = (in_array("userC", $permissoes)) ? true : false;
+	$editar = (in_array("userE", $permissoes)) ? true : false;
+	$remover = (in_array("userR", $permissoes)) ? true : false;
+@endphp
 @extends('Layouts.app')
 @section('title', 'Postagens')
 @section('conteudo')
@@ -35,9 +40,11 @@
 				<div>
 					<h2>Usuários</h2>
 				</div>
+				@if($cadastrar == true)
 				<div>
 					<button type="button" class="btn-default modalcaduser" data-href="{{ url('/usuarios/form') }}" data-bodyform="bodyformpost" data-modalname="modalformpost"><i class="fas fa-plus"></i>Novo</button>
 				</div>
+				@endif
 			</div>
 
 			<table class="display table text-center tabled-users" id="listPost">
@@ -69,7 +76,7 @@
 					render: function ( data, type, row ) {
 						if(row.avatar !== "" && row.avatar !== null){
 							return `
-								<img src="{{ asset('storage/users_avatar') }}/${row.avatar}" alt="${row.name}" class="avatar_user">
+								<img src="${row.avatar}" alt="${row.name}" class="avatar_user">
 							`;
 						}else {
 							return '';
@@ -82,8 +89,12 @@
 				{ "data": "items",
 					render: function ( data, type, row ) {
 						return `
+								@if($editar == true)
 								<button type="button" class="btn-detail modaledituser" data-href="{{ url('/usuarios/form') }}/${row.id}" data-bodyform="bodyformpost" data-modalname="modalformpost" title="Editar"><i class="fas fa-pencil-alt"></i></button>
+								@endif
+								@if($remover == true)
 								<button type="button" class="btn-detail modalremoveuser" data-href="{{ url('/usuarios/remover') }}/${row.id}" title="Remover"><i class="fas fa-trash-alt"></i></button>
+								@endif
 							`;
 					} 	
 				}

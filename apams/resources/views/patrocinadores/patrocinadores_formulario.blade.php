@@ -69,7 +69,7 @@
 		@isset($dados->id)
 			@if($dados->avatar !== "" && $dados->avatar !== null)
 				preloaded: [
-					{id:'{{ $dados->avatar }}', src:'{{ asset('storage/patrocinadores/'.$dados->avatar) }}'},
+					{id:'{{ $dados->avatar }}', src:'{{ asset($dados->avatar) }}'},
 				],
 			@endif
 		@endisset

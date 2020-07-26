@@ -16,9 +16,20 @@ class PostController extends Controller
 
     public function index()
     {
+        $permissoes = json_decode(Auth::user()->permissoes);
+
+        $visualizar = (in_array("postV", $permissoes)) ? true : false;
+        $cadastrar = (in_array("postC", $permissoes)) ? true : false;
+        $editar = (in_array("postE", $permissoes)) ? true : false;
+        $remover = (in_array("postR", $permissoes)) ? true : false;
+
+        if($visualizar == false && $cadastrar == false && $editar == false && $remover == false){
+            return redirect()->back()->with('danger','Sem permissão para prosseguir!');
+        }
+
         $nameUserAuth = Auth::user()->name;
         $avatarUserAuth = Auth::user()->avatar;
-        return view('posts/posts')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth);
+        return view('posts/posts')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth)->with('permissoes',$permissoes);
     }
 
     public function getDados()
@@ -65,7 +76,7 @@ class PostController extends Controller
             $newPost->title = $request['titulo'];
             $newPost->description = $request['descricao'];
             if(isset($request['images'])){
-                $newPost->image = $nomeimg;
+                $newPost->image = "storage/posts/{$nomeimg}";
             }
             $newPost->user_id = Auth::user()->id;
             $newPost->save();
@@ -96,7 +107,7 @@ class PostController extends Controller
             $postUpdate->title = $request['titulo'];
             $postUpdate->description = $request['descricao'];
             if(isset($request['images'])){
-                $postUpdate->image = $nomeimg;
+                $postUpdate->image = "storage/posts/{$nomeimg}";
             } elseif (!isset($request['images']) && !isset($request['preloaded'])) {
                 $postUpdate->image = "";
             }

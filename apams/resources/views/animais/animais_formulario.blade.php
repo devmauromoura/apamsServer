@@ -150,7 +150,7 @@
 		@isset($dados['animal']->id)
 			@if($dados['animal']->avatar_url !== "" && $dados['animal']->avatar_url !== null)
 				preloaded: [
-						{ id:{{ $dados['animal']->id }}, src:'{{ asset('storage/animal_avatar/'.$dados['animal']->avatar_url) }}' },
+						{ id:{{ $dados['animal']->id }}, src:'{{ asset($dados['animal']->avatar_url) }}' },
 				],
 			@endif
 		@endisset
@@ -164,7 +164,7 @@
 		@isset($dados['animal']->id)
 			preloaded: [
 				@foreach($dados['galeria'] as $glr)
-					{id:{{ $glr->id }}, src:'{{ asset('storage/animais_gallery/'.$glr->image_url) }}'},
+					{id:{{ $glr->id }}, src:'{{ asset($glr->image_url) }}'},
 				@endforeach
 			],
 		@endisset

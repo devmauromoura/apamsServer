@@ -15,9 +15,21 @@ class AnimalsController extends Controller
 
     public function index()
     {
+        $permissoes = json_decode(Auth::user()->permissoes);
+
+        $visualizar = (in_array("animalV", $permissoes)) ? true : false;
+        $cadastrar = (in_array("animalC", $permissoes)) ? true : false;
+        $editar = (in_array("animalE", $permissoes)) ? true : false;
+        $remover = (in_array("animalR", $permissoes)) ? true : false;
+
+        if($visualizar == false && $cadastrar == false && $editar == false && $remover == false){
+            return redirect()->back()->with('danger','Sem permissão para prosseguir!');
+        }
+
         $nameUserAuth = Auth::user()->name;
         $avatarUserAuth = Auth::user()->avatar;
-        return view('animais/animais')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth);
+
+        return view('animais/animais')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth)->with('permissoes',$permissoes);
     }
 
     public function getDados()
@@ -72,7 +84,7 @@ class AnimalsController extends Controller
             $newAnimal->adopted = $request['status'];
             $newAnimal->history = $request['historia'];
             if(isset($request['images_avatar'])){
-                $newAnimal->avatar_url = $nomeimgavatar;
+                $newAnimal->avatar_url = "storage/animal_avatar/{$nomeimgavatar}";
             }
             $newAnimal->save();
 
@@ -94,7 +106,7 @@ class AnimalsController extends Controller
                     $saveStorage = $request->file('images_gallery')[$key]->storeAs('animais_gallery',$nomeimg);
     
                     $AnimalGallery = new AnimalsGallery;
-                    $AnimalGallery->image_url = $nomeimg;
+                    $AnimalGallery->image_url = "storage/animais_gallery/{$nomeimg}";
                     $AnimalGallery->animal_id = $uid;
                     $AnimalGallery->save();
                 }
@@ -133,7 +145,7 @@ class AnimalsController extends Controller
             $newAnimal->adopted = $request['status'];
             $newAnimal->history = $request['historia'];
             if(isset($request['images_avatar'])){
-                $newAnimal->avatar_url = $nomeimgavatar;
+                $newAnimal->avatar_url = "storage/animal_avatar/{$nomeimgavatar}";
             }elseif (!isset($request['images_avatar']) && !isset($request['preloaded_avatar'])) {
                 $newAnimal->avatar_url = "";
             }
@@ -168,9 +180,9 @@ class AnimalsController extends Controller
 
                 $Animalremove = $AnimalGallery::whereIn('id', $arrDelete)->delete();
 
-                foreach ($Animalremovelocal as $arrdel) {
-                    Storage::delete('animais_gallery/'.$arrdel->galleryUrl);
-                }
+                // foreach ($Animalremovelocal as $arrdel) {
+                //     Storage::delete('animais_gallery/'.$arrdel->galleryUrl);
+                // }
 
             } catch (\Throwable $th) {
                 return redirect('animais')->with('danger', 'Erro ao editar o animal! [IMG GALLERY]');
@@ -190,7 +202,7 @@ class AnimalsController extends Controller
                     $saveStorage = $request->file('images_gallery')[$key]->storeAs('animais_gallery',$nomeimg);
     
                     $AnimalGallery = new AnimalsGallery;
-                    $AnimalGallery->image_url = $nomeimg;
+                    $AnimalGallery->image_url = "storage/animais_gallery/{$nomeimg}";
                     $AnimalGallery->animal_id = $uid;
                     $AnimalGallery->save();
                 }

@@ -1,3 +1,8 @@
+@php
+	$cadastrar = (in_array("animalC", $permissoes)) ? true : false;
+	$editar = (in_array("animalE", $permissoes)) ? true : false;
+	$remover = (in_array("animalR", $permissoes)) ? true : false;
+@endphp
 @extends('Layouts.app')
 @section('title', 'Postagens')
 @section('conteudo')
@@ -35,9 +40,11 @@
 				<div>
 					<h2>Animais</h2>
 				</div>
-				<div>
-					<button type="button" class="btn-default modalcadanimal" data-href="{{ url('/animais/form') }}" data-bodyform="bodyformpost" data-modalname="modalformpost"><i class="fas fa-plus"></i>Novo</button>
-				</div>
+				@if($cadastrar == true)
+					<div>
+						<button type="button" class="btn-default modalcadanimal" data-href="{{ url('/animais/form') }}" data-bodyform="bodyformpost" data-modalname="modalformpost"><i class="fas fa-plus"></i>Novo</button>
+					</div>
+				@endif
 			</div>
 
 			<table class="display table text-center" id="listPost">
@@ -100,8 +107,12 @@
 				{ "data": "items",
 					render: function ( data, type, row ) {
 						return `
+								@if($editar == true)
 								<button type="button" class="btn-detail modaleditanimal" data-href="{{ url('/animais/form') }}/${row.id}" data-bodyform="bodyformpost" data-modalname="modalformpost" title="Editar"><i class="fas fa-pencil-alt"></i></button>
+								@endif
+								@if($remover == true)
 								<button type="button" class="btn-detail modalremoveanimal" data-href="{{ url('/animais/remover') }}/${row.id}" title="Remover"><i class="fas fa-trash-alt"></i></button>
+								@endif
 							`;
 					} 	
 				}

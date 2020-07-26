@@ -52,7 +52,7 @@
 		@isset($dados->id)
 			@if($dados->image !== "" && $dados->image !== null)
 				preloaded: [
-					{id:{{ $dados->id }}, src:'{{ asset('storage/posts/'.$dados->image) }}'},
+					{id:{{ $dados->id }}, src:'{{ asset($dados->image) }}'},
 				],
 			@endif
 		@endisset

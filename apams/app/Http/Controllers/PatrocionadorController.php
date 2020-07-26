@@ -15,9 +15,20 @@ class PatrocionadorController extends Controller
 
     public function index()
     {
+        $permissoes = json_decode(Auth::user()->permissoes);
+
+        $visualizar = (in_array("patrocinadorV", $permissoes)) ? true : false;
+        $cadastrar = (in_array("patrocinadorC", $permissoes)) ? true : false;
+        $editar = (in_array("patrocinadorE", $permissoes)) ? true : false;
+        $remover = (in_array("patrocinadorR", $permissoes)) ? true : false;
+
+        if($visualizar == false && $cadastrar == false && $editar == false && $remover == false){
+            return redirect()->back()->with('danger','Sem permissão para prosseguir!');
+        }
+
         $nameUserAuth = Auth::user()->name;
         $avatarUserAuth = Auth::user()->avatar;
-        return view('patrocinadores/patrocinadores')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth);
+        return view('patrocinadores/patrocinadores')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth)->with('permissoes',$permissoes);
     }
 
     public function getDados()
@@ -59,7 +70,7 @@ class PatrocionadorController extends Controller
             $newPatrocinador->cellphone = $request['contato'];
             $newPatrocinador->description = $request['descricao'];
             if($request['images']){
-                $newPatrocinador->avatar = $nomeimg;
+                $newPatrocinador->avatar = "storage/patrocinadores/{$nomeimg}";
             }
 
             $newPatrocinador->save();
@@ -96,7 +107,7 @@ class PatrocionadorController extends Controller
             $upPatrocinador->cellphone = $request['contato'];
             $upPatrocinador->description = $request['descricao'];
             if(isset($request['images'])){
-                $upPatrocinador->avatar = $nomeimg;
+                $upPatrocinador->avatar = "storage/patrocinadores/{$nomeimg}";
             } elseif (!isset($request['images']) && !isset($request['preloaded'])) {
                 $upPatrocinador->avatar = "";
             }

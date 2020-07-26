@@ -12,9 +12,20 @@ class StaffController extends Controller
 
     public function index()
     {
+        $permissoes = json_decode(Auth::user()->permissoes);
+
+        $visualizar = (in_array("userV", $permissoes)) ? true : false;
+        $cadastrar = (in_array("userC", $permissoes)) ? true : false;
+        $editar = (in_array("userE", $permissoes)) ? true : false;
+        $remover = (in_array("userR", $permissoes)) ? true : false;
+
+        if($visualizar == false && $cadastrar == false && $editar == false && $remover == false){
+            return redirect()->back()->with('danger','Sem permissão para prosseguir!');
+        }
+
         $nameUserAuth = Auth::user()->name;
         $avatarUserAuth = Auth::user()->avatar;
-        return view('users/users')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth);
+        return view('users/users')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth)->with('permissoes',$permissoes);
     }
 
     public function getDados()
@@ -94,6 +105,9 @@ class StaffController extends Controller
         if(isset($request['del_patrocinador']))
             $permissoes[] = 'patrocinadorR';
 
+        if(isset($request['edit_configuracao']))
+            $permissoes[] = 'configuracaoE';
+
         try {
             $saveUser = new Staff;
 
@@ -101,7 +115,7 @@ class StaffController extends Controller
             $saveUser->email = $request['email'];
             $saveUser->password = Hash::make($request['senha']);
             if(isset($request['images'])){
-                $saveUser->avatar = $nomeimg;
+                $saveUser->avatar = "storage/users_avatar/{$nomeimg}";
             }
             $saveUser->permissoes = json_encode($permissoes);
     
@@ -166,6 +180,10 @@ class StaffController extends Controller
         if(isset($request['del_patrocinador']))
             $permissoes[] = 'patrocinadorR';
 
+        if(isset($request['edit_configuracao']))
+            $permissoes[] = 'configuracaoE';
+
+
         try {
             $saveUser = new Staff;
             $saveUser = $saveUser::find($id);
@@ -179,7 +197,7 @@ class StaffController extends Controller
             }
 
             if(isset($request['images'])){
-                $saveUser->avatar = $nomeimg;
+                $saveUser->avatar = "storage/users_avatar/{$nomeimg}";
             } elseif (!isset($request['images']) && !isset($request['preloaded'])) {
                 $saveUser->avatar = "";
             }

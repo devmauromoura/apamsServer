@@ -1,3 +1,8 @@
+@php
+	$cadastrar = (in_array("patrocinadorC", $permissoes)) ? true : false;
+	$editar = (in_array("patrocinadorE", $permissoes)) ? true : false;
+	$remover = (in_array("patrocinadorR", $permissoes)) ? true : false;
+@endphp
 @extends('Layouts.app')
 @section('title', 'Postagens')
 @section('conteudo')
@@ -35,9 +40,11 @@
 				<div>
 					<h2>Patrocinadores</h2>
 				</div>
+				@if($cadastrar == true)
 				<div>
 					<button type="button" class="btn-default modalcadpatr" data-href="{{ url('/patrocinadores/form') }}" data-bodyform="bodyformpost" data-modalname="modalformpost"><i class="fas fa-plus"></i>Novo</button>
 				</div>
+				@endif
 			</div>
 
 			<table class="display table text-center" id="listPost">
@@ -71,8 +78,12 @@
 				{ "data": "items",
 					render: function ( data, type, row ) {
 						return `
+								@if($editar == true)
 								<button type="button" class="btn-detail modaleditpatr" data-href="{{ url('/patrocinadores/form') }}/${row.id}" data-bodyform="bodyformpost" data-modalname="modalformpost" title="Editar"><i class="fas fa-pencil-alt"></i></button>
+								@endif
+								@if($remover == true)
 								<button type="button" class="btn-detail modalremovepatr" data-href="{{ url('/patrocinadores/remover') }}/${row.id}" title="Remover"><i class="fas fa-trash-alt"></i></button>
+								@endif
 							`;
 					} 	
 				}
