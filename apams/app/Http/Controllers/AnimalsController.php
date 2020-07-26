@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Storage;
 class AnimalsController extends Controller
 {
 
-// Rotas Front
     public function index()
     {
         $nameUserAuth = Auth::user()->name;
-        return view('animais/animais')->with('nameUserAuth',$nameUserAuth);
+        $avatarUserAuth = Auth::user()->avatar;
+        return view('animais/animais')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth);
     }
 
     public function getDados()
@@ -202,7 +202,7 @@ class AnimalsController extends Controller
         return redirect('animais')->with('success', 'Animal editado com sucesso!');
     }
 
-    protected function remover(Request $request, $id)
+    public function remover(Request $request, $id)
     {
         try {
 
@@ -231,22 +231,5 @@ class AnimalsController extends Controller
 
         return redirect('animais')->with('success', 'Animal removido com sucesso!');
     }
-// Rotas Front
-
-// Rotas API
-
-    public function show(){
-        $dataAnimals = Animals::all();
-
-        return response()->json(['return'=> $dataAnimals], 200);
-    }
-
-    protected function showAnimal($id){
-        $dataAnimal = Animals::find($id);
-        
-        return response()->json(['return'=> $dataAnimal], 200);
-    }
-
-// Rotas API
 
 }

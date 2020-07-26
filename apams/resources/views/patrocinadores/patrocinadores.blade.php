@@ -67,7 +67,7 @@
 				{ "data": "id" },
 				{ "data": "name" },
 				{ "data": "email" },
-				{ "data": "contato" },
+				{ "data": "cellphone" },
 				{ "data": "items",
 					render: function ( data, type, row ) {
 						return `

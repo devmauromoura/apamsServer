@@ -61,23 +61,23 @@
 
     // ROTAS DE USUÁRIO
         Route::prefix('/usuarios')->group(function(){
-            Route::get('/','UserController@index');
-            Route::get('/form/{id?}','UserController@formulario')->where(['id' => '[0-9]+']);
-            Route::post('/salvar', 'UserController@salvar');
-            Route::post('/editar/{id}', 'UserController@editar')->where(['id' => '[0-9]+']);
-            Route::get('/remover/{id}', 'UserController@remover')->where(['id' => '[0-9]+']);
-            Route::get('/dados','UserController@getDados');
+            Route::get('/','StaffController@index');
+            Route::get('/form/{id?}','StaffController@formulario')->where(['id' => '[0-9]+']);
+            Route::post('/salvar', 'StaffController@salvar');
+            Route::post('/editar/{id}', 'StaffController@editar')->where(['id' => '[0-9]+']);
+            Route::get('/remover/{id}', 'StaffController@remover')->where(['id' => '[0-9]+']);
+            Route::get('/dados','StaffController@getDados');
         });
     // ROTAS DE USUÁRIO
 
     // ROTAS DE CONFIGURACOES
         Route::prefix('/configuracoes')->group(function(){
-            Route::get('/','ConfiguracoesController@index');
-            Route::get('/form/{id?}','ConfiguracoesController@formulario')->where(['id' => '[0-9]+']);
-            Route::post('/salvar', 'ConfiguracoesController@salvar');
-            Route::post('/editar/{id}', 'ConfiguracoesController@editar')->where(['id' => '[0-9]+']);
-            Route::get('/remover/{id}', 'ConfiguracoesController@remover')->where(['id' => '[0-9]+']);
-            Route::get('/dados','ConfiguracoesController@getDados');
+            Route::get('/','SettingsController@index');
+            Route::get('/form/{id?}','SettingsController@formulario')->where(['id' => '[0-9]+']);
+            Route::post('/salvar', 'SettingsController@salvar');
+            Route::post('/editar/{id}', 'SettingsController@editar')->where(['id' => '[0-9]+']);
+            Route::get('/remover/{id}', 'SettingsController@remover')->where(['id' => '[0-9]+']);
+            Route::get('/dados','SettingsController@getDados');
         });
     // ROTAS DE CONFIGURACOES
 

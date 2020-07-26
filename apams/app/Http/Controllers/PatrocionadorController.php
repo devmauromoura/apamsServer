@@ -16,7 +16,8 @@ class PatrocionadorController extends Controller
     public function index()
     {
         $nameUserAuth = Auth::user()->name;
-        return view('patrocinadores/patrocinadores')->with('nameUserAuth',$nameUserAuth);
+        $avatarUserAuth = Auth::user()->avatar;
+        return view('patrocinadores/patrocinadores')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth);
     }
 
     public function getDados()
@@ -37,32 +38,35 @@ class PatrocionadorController extends Controller
 
     public function salvar(Request $request)
     {
-        try {
+        if($request['images']){
+            try {
+                $ext = $request->file('images')[0]->extension();
+                $nome = kebab_case($request['nome']);
+                $data = date('d-m-Y_H-i-s');
+                $nomeimg = "logo{$nome}{$data}.{$ext}";
 
-            $ext = $request->file('images')[0]->extension();
-            $nome = kebab_case($request['nome']);
-            $data = date('d-m-Y_H-i-s');
-            $nomeimg = "logo{$nome}{$data}.{$ext}";
+                $saveStorage = $request->file('images')[0]->storeAs('patrocinadores',$nomeimg); 
+            } catch (\Throwable $th) {
+                return redirect('patrocinadores')->with('danger', 'Erro ao cadastrar o patrocinador! [IMG]');
+            }
+        }
+
+        try {
 
             $newPatrocinador = new Sponsors;
             $newPatrocinador->name = $request['nome'];
             $newPatrocinador->email = $request['email'];
-            $newPatrocinador->contato = $request['contato'];
+            $newPatrocinador->cellphone = $request['contato'];
             $newPatrocinador->description = $request['descricao'];
-            $newPatrocinador->logo = $nomeimg;
+            if($request['images']){
+                $newPatrocinador->avatar = $nomeimg;
+            }
 
             $newPatrocinador->save();
 
         } catch (\Throwable $th) {
-            return redirect('patrocinadores')->with('danger', 'Erro ao cadastrar o patrocinador.');
+            return redirect('patrocinadores')->with('danger', 'Erro ao cadastrar o patrocinador! [BD]');
         }
-
-        try {
-            $saveStorage = $request->file('images')[0]->storeAs('patrocinadores',$nomeimg); 
-        } catch (\Throwable $th) {
-            return redirect('patrocinadores')->with('danger', 'Erro ao cadastrar imagem do patrocinador.');
-        }
-        
 
         return redirect('patrocinadores')->with('success', 'Patrocinador cadastrado com sucesso!');
     }
@@ -89,12 +93,12 @@ class PatrocionadorController extends Controller
             $upPatrocinador = $upPatrocinador::find($id);
             $upPatrocinador->name = $request['nome'];
             $upPatrocinador->email = $request['email'];
-            $upPatrocinador->contato = $request['contato'];
+            $upPatrocinador->cellphone = $request['contato'];
             $upPatrocinador->description = $request['descricao'];
             if(isset($request['images'])){
-                $upPatrocinador->logo = $nomeimg;
+                $upPatrocinador->avatar = $nomeimg;
             } elseif (!isset($request['images']) && !isset($request['preloaded'])) {
-                $upPatrocinador->logo = "";
+                $upPatrocinador->avatar = "";
             }
             $upPatrocinador->save();
         } catch (\Throwable $th) {

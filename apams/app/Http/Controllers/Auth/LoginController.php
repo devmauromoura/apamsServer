@@ -36,7 +36,8 @@ class LoginController extends Controller
     }
 
     protected function login(Request $request){
-                if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
+                
+                if(Auth::guard('web')->attempt(['email' => $request['email'], 'password' => $request['password']])){
                     return redirect('home');
                 }else{
                    return redirect('/')->with('error', 'Verifique suas credenciais!');

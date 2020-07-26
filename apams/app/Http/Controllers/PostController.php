@@ -14,12 +14,11 @@ use DB;
 class PostController extends Controller
 {
 
-// Rotas Front
-
     public function index()
     {
         $nameUserAuth = Auth::user()->name;
-        return view('posts/posts')->with('nameUserAuth',$nameUserAuth);
+        $avatarUserAuth = Auth::user()->avatar;
+        return view('posts/posts')->with('nameUserAuth',$nameUserAuth)->with('avatarUserAuth',$avatarUserAuth);
     }
 
     public function getDados()
@@ -34,7 +33,6 @@ class PostController extends Controller
 
     public function infoPost($id)
     {
-
         return view('posts/posts_info_formulario');
     }
 
@@ -121,4 +119,5 @@ class PostController extends Controller
 
         return redirect('postagens')->with('success', 'Post removido com sucesso!');
     }
+    
 }

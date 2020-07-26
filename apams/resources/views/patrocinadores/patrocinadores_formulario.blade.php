@@ -14,7 +14,7 @@
 
 	<div class="form-group">
 		<label>Contato</label>
-		<input type="text" class="form-control" name="contato" id="contato" value="{{ (isset($dados->contato)) ? $dados->contato : "" }}">
+		<input type="text" class="form-control" name="contato" id="contato" value="{{ (isset($dados->cellphone)) ? $dados->cellphone : "" }}">
 	</div>
 
 	<div class="form-group" style="display: flex;align-items: center;justify-content: center;flex-direction: column;">
@@ -67,9 +67,9 @@
 
 	$('.input-images-patrocinador').imageUploader({
 		@isset($dados->id)
-			@if($dados->logo !== "" && $dados->logo !== null)
+			@if($dados->avatar !== "" && $dados->avatar !== null)
 				preloaded: [
-					{id:'{{ $dados->logo }}', src:'{{ asset('storage/patrocinadores/'.$dados->logo) }}'},
+					{id:'{{ $dados->avatar }}', src:'{{ asset('storage/patrocinadores/'.$dados->avatar) }}'},
 				],
 			@endif
 		@endisset

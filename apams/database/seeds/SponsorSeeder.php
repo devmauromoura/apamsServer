@@ -16,6 +16,7 @@ class SponsorSeeder extends Seeder
             'name' => 'Patrocionador 1',
             'email' => 'email@email.com',
             'cellphone' => '00000000000',
+            'description' => 'descrição',
             'avatar' => ''
         ]);
     }

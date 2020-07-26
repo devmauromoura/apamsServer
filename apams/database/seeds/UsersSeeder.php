@@ -17,8 +17,7 @@ class UsersSeeder extends Seeder
             'name' => 'Desenvolvedor',
             'email' => 'api@altatecnologia.com.br',
             'password' => Hash::make('102030'),
-            'active' => 1,
-            'permissoes' => json_encode([])
+            'active' => 1
         ]);
     }
 }

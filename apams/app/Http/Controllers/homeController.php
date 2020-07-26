@@ -40,8 +40,16 @@ class HomeController extends Controller
         $totalSponsors = Sponsors::count();
         $totalUsers = User::count();
         $nameUserAuth = Auth::user()->name;
+        $avatarUserAuth = Auth::user()->avatar;
         
-        return view('home')->with(compact('totalCat'))->with(compact('totalDog'))->with(compact('totalAdopted'))->with(compact('totalNoAdopted'))->with(compact('totalSponsors'))->with(compact('totalUsers'))->with(compact('nameUserAuth'));
+        return view('home')->with(compact('totalCat'))
+                           ->with(compact('totalDog'))
+                           ->with(compact('totalAdopted'))
+                           ->with(compact('totalNoAdopted'))
+                           ->with(compact('totalSponsors'))
+                           ->with(compact('totalUsers'))
+                           ->with(compact('nameUserAuth'))
+                           ->with(compact('avatarUserAuth'));
     }
 
 }

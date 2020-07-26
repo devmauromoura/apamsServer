@@ -4,7 +4,10 @@ namespace ApamsServer;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Staff extends Model
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class Staff extends Authenticatable
 {
     protected $table = "staff";
 }
