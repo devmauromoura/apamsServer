@@ -15,16 +15,9 @@ class UsersSeeder extends Seeder
     {
         User::create([
             'name' => 'Desenvolvedor',
-            'email' => 'web@altatecnologia.com.br',
-            'password' => Hash::make('102030'),
-            'activeAccount' => 1,
-            'permissoes' => json_encode([])
-        ]);
-        User::create([
-            'name' => 'Desenvolvedor',
             'email' => 'api@altatecnologia.com.br',
             'password' => Hash::make('102030'),
-            'activeAccount' => 1,
+            'active' => 1,
             'permissoes' => json_encode([])
         ]);
     }

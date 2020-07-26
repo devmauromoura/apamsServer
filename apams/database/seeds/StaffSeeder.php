@@ -20,12 +20,5 @@ class StaffSeeder extends Seeder
             'avatar' => '',
             'permissoes' => json_encode([])
         ]);
-        Staff::create([
-            'name' => 'Desenvolvedor',
-            'email' => 'api@altatecnologia.com.br',
-            'password' => Hash::make('102030'),
-            'avatar' => '',
-            'permissoes' => json_encode([])
-        ]);
     }
 }

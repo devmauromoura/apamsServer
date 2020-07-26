@@ -23,8 +23,9 @@ class CreateUsersTable extends Migration
             $table->string('refresh_token')->nullable();
             $table->unsignedInteger('expires_in')->nullable();
             $table->rememberToken();
-            $table->boolean('activeAccount')->default(0);   // 0 - Não tivo   1 - Ativo
-            $table->json('permissoes');  // 0 - Usuário normal, 1 - Usuário Moderador, 2 - Usuário Administrador.
+            $table->string('cellphone')->nullable();
+            $table->string('avatar')->nullable();
+            $table->boolean('active')->default(0); 
             $table->timestamps();
         });
     }
