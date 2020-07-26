@@ -15,9 +15,9 @@ class CreateAnimalsGalleryTable extends Migration
     {
         Schema::create('animals_gallery', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('idAnimal');
-            $table->string('galleryUrl');
-            $table->string('description');
+            $table->string('image_url');
+            $table->integer('animal_id')->unsigned();
+            $table->foreign('animal_id')->references('id')->on('animals');
             $table->timestamps();
         });
     }

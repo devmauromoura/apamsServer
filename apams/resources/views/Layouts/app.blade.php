@@ -2,5 +2,5 @@
 
     @yield('conteudo')
 
-
+@include('Layouts.notify')
 @include('Layouts.footer')

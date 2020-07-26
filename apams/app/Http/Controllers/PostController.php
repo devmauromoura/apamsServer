@@ -13,70 +13,118 @@ use DB;
 
 class PostController extends Controller
 {
-    public function show(){
-        //$posts = Post::all();
-        $posts = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description, animals.name AS animalNome'))->get();
-        $animals = Animals::all();
+
+// Rotas Front
+
+    public function index()
+    {
         $nameUserAuth = Auth::user()->name;
-        return View::make('posts')->with(compact('nameUserAuth'))->with(compact('animals'))->with(compact('posts'));
+        return view('posts/posts')->with('nameUserAuth',$nameUserAuth);
     }
 
-    protected function create(Request $request){
-        $method = $request->method();
+    public function getDados()
+    {
+        try {
+            $posts = Post::all();
+        } catch (\Throwable $th) {
+            $posts = [];
+        }
+        return response()->json(['data' => $posts]);
+    }
 
-        if ($method == "POST") {
-            $postData = $request->all();
+    public function infoPost($id)
+    {
+
+        return view('posts/posts_info_formulario');
+    }
+
+    public function formulario($id=null)
+    {
+        $data = [];
+
+        if($id){
+            $data =Post::find($id);
+        }
+        return view('posts/posts_formulario')->with('dados',$data);
+    }
+
+    public function salvar(Request $request)
+    {
+        if(isset($request['images'])){
+            try {
+                $ext = $request->file('images')[0]->extension();
+                $data = date('d-m-Y_H-i-s');
+                $nomeimg = "post_{$data}.{$ext}";
+    
+                $saveStorage = $request->file('images')[0]->storeAs('posts',$nomeimg); 
+            } catch (\Throwable $th) {
+                return redirect('postagens')->with('danger', 'Erro ao cadastrar o post! [IMG]');
+            }
+        }
+        
+        try {
             $newPost = new Post;
-            $newPost->idAnimal = $request['animal'];
             $newPost->title = $request['titulo'];
-            $newPost->description = $request['description'];
-            $newPost->typePost = $request['finalidade'];
-            $newPost->status = 0;
-            $newPost->idUser = Auth::user()->id;
+            $newPost->description = $request['descricao'];
+            if(isset($request['images'])){
+                $newPost->image = $nomeimg;
+            }
+            $newPost->user_id = Auth::user()->id;
             $newPost->save();
+        } catch (\Throwable $th) {
+            return redirect('postagens')->with('danger', 'Erro ao cadastrar o post! [BD]');
+        }
 
-            return redirect('postagens')->with('msg', 'Post cadastrado!');
-        }
-        elseif ($method == "GET") {
-            return View::make('Post.create');
-        }
-        else {
-            return "Metodo não esperado!";
-        }
+        return redirect('postagens')->with('success', 'Post cadastrado com sucesso!');
     }
 
-    protected function update(Request $request){
-        $method = $request->method();
+    public function editar(Request $request, $id)
+    {
+        if(isset($request['images']))
+        {
+            try {
+                $ext = $request->file('images')[0]->extension();
+                $data = date('d-m-Y_H-i-s');
+                $nomeimg = "post_{$data}.{$ext}";
+    
+                $saveStorage = $request->file('images')[0]->storeAs('posts',$nomeimg); 
+            } catch (\Throwable $th) {
+                return redirect('postagens')->with('danger', 'Erro ao cadastrar o post! [IMG]');
+            }
+        }
 
-        if ($method == "POST") {
-            $postData = $request->all();
-            $postUpdate = Post::find($request['idPost']);
-            $postUpdate->idAnimal = $request['editarAnimal'];
-            $postUpdate->title = $request['editarTitulo'];
-            $postUpdate->description = $request['description'];
-            $postUpdate->typePost = $request['editarFinalidade'];
-            $postUpdate->status = $request['statusPost'];
-            $newPost->save();
+        try {
+            $postUpdate = Post::find($id);
+            $postUpdate->title = $request['titulo'];
+            $postUpdate->description = $request['descricao'];
+            if(isset($request['images'])){
+                $postUpdate->image = $nomeimg;
+            } elseif (!isset($request['images']) && !isset($request['preloaded'])) {
+                $postUpdate->image = "";
+            }
+            $postUpdate->save();
+        } catch (\Throwable $th) {
+            return redirect('postagens')->with('danger', 'Erro ao cadastrar o post! [BD]');
+        }
 
-            return redirect('postagens')->with('msg', 'Post atualizado!');
-        }
-        elseif ($method == "GET") {
-            return view('Post.update');
-        }
-        else {
-            return "Metodo não esperado!";
-        }
+        return redirect('postagens')->with('success', 'Post editado com sucesso!');
     }
 
-    protected function delete(Request $request){
-        $postDeleteId = $request['id'];
-        $postDelete = Post::find($postDeleteId);
-        $postDelete->delete();
+    public function remover(Request $request, $id)
+    {
+        try {
+            $postDelete = Post::find($id);
+            $postDelete->delete();
+        } catch (\Throwable $th) {
+            return redirect('postagens')->with('danger', 'Erro ao remover o post! [BD]');
+        }
 
-        return "Post removido com sucesso!";
+        return redirect('postagens')->with('success', 'Post removido com sucesso!');
     }
 
-    // Rotas API
+// Rotas Front
+
+// Rotas API
 
     public function showApi(){
         $dataPost = DB::table('post')->leftJoin('animals','idAnimal','=','animals.id')->leftJoin('like_post','post.id','=','like_post.idPost')->select(DB::raw('post.id, post.title, post.typePost, post.status, post.description,post.created_at AS data, animals.id AS animalId,animals.name AS animalName, animals.avatarUrl as avatarAnimal, count(like_post.idPost) AS likes'))->orderBy('post.created_at', 'desc')->groupBy('post.id','post.title','post.typePost','post.status','post.description','animalId','animalName','avatarAnimal','post.created_at')->get();
@@ -105,5 +153,6 @@ class PostController extends Controller
         }
     }
 
+// Rotas API
 
 }

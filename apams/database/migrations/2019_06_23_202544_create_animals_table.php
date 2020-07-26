@@ -14,13 +14,16 @@ class CreateAnimalsTable extends Migration
     public function up()
     {
         Schema::create('animals', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('size')->nullable(); 
             $table->string('type')->nullable();  
+            $table->float('weight')->nullable();
+            $table->integer('age')->nullable();
+            $table->string('sex', 1)->nullable(); // F || M
             $table->string('adopted')->default('0'); // 0 - Aguardando adoção   1-Em processo de adoção   2-Adotado
-            $table->longText('description');
-            $table->string('avatarUrl', 3000)->default('avatarUrl');
+            $table->longText('history');
+            $table->string('avatar_url')->default('');
             $table->timestamps();
         });
     }

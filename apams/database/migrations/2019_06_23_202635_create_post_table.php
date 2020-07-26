@@ -14,14 +14,12 @@ class CreatePostTable extends Migration
     public function up()
     {
         Schema::create('post', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('idAnimal');
+            $table->increments('id');
             $table->string('title');
-            $table->string('description');
-            $table->integer('typePost'); // 0 Adoção
-            $table->boolean('status')->default(0); // 0 - Aguardando Adoção | 1 - Adotado
-            $table->integer('idUser');     
-            $table->longText('cover')->nullable();       
+            $table->longText('description');
+            $table->string('image')->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('staff');
             $table->timestamps();
         });
     }

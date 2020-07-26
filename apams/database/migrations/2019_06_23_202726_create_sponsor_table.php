@@ -17,8 +17,9 @@ class CreateSponsorTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email');
-            $table->string('cellphone');
-            $table->string('logotypeUrl', 3000);            
+            $table->string('contato');
+            $table->string('description');
+            $table->string('logo');            
             $table->timestamps();
         });
     }

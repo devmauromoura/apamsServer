@@ -6,7 +6,10 @@
     font-family: 'Work Sans', sans-serif;
 }
 
-i {
+#menu i,
+.title i,
+.btn-default i,
+.btn-detail i {
   margin-right: 10px;
 }
 
@@ -16,7 +19,7 @@ i {
 
 #menu {
   float: left;
-  width: 18%;
+  width: 20rem;
   height: 100vh;
   background-color: #222;
   color: #fff;
@@ -29,7 +32,7 @@ i {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 25vh;
+  height: 22rem;
 }
 
 .user > h5 {
@@ -84,19 +87,23 @@ display: none;
   color:#f93;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 
 /***
 ****VIEW
 ***/
 
 #conteudo {
-  width: 82%;
+  width: 100%;
   height: 100%;
   min-height: 100vh;
-  margin-left: 18%;
   background-color: #eceff1;
   color: #37474f;
   float: right;
+  padding-left: 20rem;
 }
 
 #conteudo > .title {
@@ -122,8 +129,10 @@ display: none;
 }
 
 .error {
-  color: red !important;
-  margin-top: 5px;
+  color: #ff7272!important;
+  font-weight: lighter!important;
+  font-size: 0.8rem!important;
+  margin: 0!important;
 }
 
 
@@ -179,12 +188,6 @@ display: none;
 #conteudo .dataTables_paginate a.next:hover {
   border-radius: 5px;
   color: #f93!important;
-}
-
-#conteudo .dataTables_paginate .current {
-  border-radius: 5px;
-  color: #37474f!important;
-  border: 1px solid #37474f;
 }
 
 td {
@@ -287,6 +290,58 @@ td {
   font-weight: bold;
 }
 
+#form_post_settings .btn {
+  margin: 0!important;
+  font-weight: lighter!important;
+}
+
+#form_post_settings label {
+  font-weight: lighter!important;
+}
+
+#form_post_settings input[type=text], 
+#form_post_settings input[type=email], 
+#form_post_settings select, 
+#form_post_settings textarea {
+  border-color: #ffdebd!important;
+}
+
+.btn-default {
+  margin: 0;
+  padding: 0.5rem;
+  background-color: #f93;
+  width: auto;
+  color: #FFF;
+  border: 1px solid #ffffff;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+.btn-default:focus {
+  outline: none!important;
+}
+
+.btn-detail {
+  background-color: transparent;
+  border: none;
+  text-align: center;
+}
+
+.btn-detail:focus {
+  outline: none!important;
+}
+
+.btn-detail > i {
+  font-size: 1.2rem!important;
+  color: #d66b00;
+}
+
+.btn-active {
+    background-color: #111;
+    border-left: 4px solid #f93;
+    color: #f93;
+}
+
 #conteudo > .article .title-list {
   display: flex;
   justify-content: space-between;
@@ -332,13 +387,20 @@ td {
 .modal form input[type=text], 
 .modal form input[type=email],
 .modal form select, 
-.modal form textarea  {border-color: #f93; color: #37474f;}
+.modal form textarea  {
+  border-color: #ffdebd;
+  color: #37474f;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.1rem #fbca9b!important;
+}
 
 .modal form input[type=file] { display: none; }
 
 .modal form label {
-  font-weight: bold;
-  color: #37474f;
+  font-weight: lighter;
+  color: #2e3335;
 }
 .modal form input[type=file] {
   display: block;
@@ -346,12 +408,10 @@ td {
 .modal .btn-modal {
   background-color: #f93;
   color: #FFF;
-  font-weight: bold;
 }
 .modal .btn-exit {
   background-color: #585d5f;
   color: #FFF;
-  font-weight: bold;
   margin-bottom: 8px;
 }
 
@@ -452,7 +512,7 @@ td {
     display: none;
   }
   #conteudo > .article .title-list {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   #conteudo > .article .title-list .procurar-animais input[type=text] {
@@ -473,4 +533,156 @@ td {
 
 }
 
+/**********
+  INPUT IMG
+***********/
 
+.avatar_user {
+  height: 3rem;
+  width: 3rem;
+  border: 1px solid #37474f;
+  border-radius: 50px;
+}
+
+.input-images-post .image-uploader {
+    height: 10rem!important;
+    width: 10rem!important;
+}
+
+.input-images-post .image-uploader .uploaded .uploaded-image {
+  width: 100%!important;
+  padding-bottom: 0!important;
+  margin: 0!important;
+  height: 9rem!important;
+}
+
+.input-images-user .image-uploader {
+    height: 10rem!important;
+    width: 10rem!important;
+}
+
+.input-images-user .image-uploader .uploaded .uploaded-image {
+  width: 100%!important;
+  padding-bottom: 0!important;
+  margin: 0!important;
+  height: 9rem!important;
+}
+
+.input-images-patrocinador .image-uploader {
+    height: 10rem!important;
+    width: 10rem!important;
+}
+
+.input-images-patrocinador .image-uploader .uploaded .uploaded-image {
+  width: 100%!important;
+  padding-bottom: 0!important;
+  margin: 0!important;
+  height: 9rem!important;
+}
+
+.input-images-avatar .image-uploader {
+    height: 10rem!important;
+    width: 10rem!important;
+}
+
+.input-images-avatar .image-uploader .uploaded .uploaded-image {
+  width: 100%!important;
+  padding-bottom: 0!important;
+  margin: 0!important;
+  height: 9rem!important;
+}
+
+.input-images-gallery .uploaded {
+    padding: 0!important;
+}
+
+.input-images-gallery .image-uploader .uploaded .uploaded-image {
+  width: 3.9rem!important;
+  padding-bottom: 0!important;
+  height: 3.9rem!important;
+  background: transparent!important;
+}
+
+.input-images-gallery .image-uploader .uploaded .uploaded-image img {
+  border: 1px solid #f7bf88;
+  border-radius: 0.5rem;
+}
+
+
+/**********
+  NOTIFY
+***********/
+.alert {
+  width: 22rem!important;
+}
+
+
+/**********
+   TABLES
+***********/
+
+.tabled-users td {
+  vertical-align: middle!important;
+  height: 3rem;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  padding-top: 0.5rem!important;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#conteudo .dataTables_paginate span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#conteudo .dataTables_paginate span .paginate_button {
+  border-radius: 5px;
+  color: #37474f!important;
+  border: 1px solid #37474f;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  width: 7rem;
+  margin-left: 1rem!important;
+}
+
+.dataTables_wrapper .dataTables_length {
+  float: left;
+  display: none;
+}
+
+.dataTables_wrapper .dataTables_filter {
+  float: right;
+  text-align: right;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#listPost_filter label {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#conteudo .dataTables_filter input[type=search] {
+  border-radius: 5px!important;
+  padding: 0.5rem!important;
+  width: 100%!important;
+  margin: 1rem 0rem 0rem 0rem!important;
+  border: 1px solid #ccc!important;
+}
