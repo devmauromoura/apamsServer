@@ -31,10 +31,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     // ROTAS DE USUÁRIO
     Route::prefix('/users')->group(function(){
-        Route::get('/', 'UserController@show');
+        Route::get('/', 'StaffController@show');
         Route::match(['get', 'post'], '/register', 'Auth\RegisterController@register');
-        Route::match(['get', 'post'],'/update', 'UserController@update');
-        Route::get('/delete', 'UserController@delete');
+        Route::match(['get', 'post'],'/update', 'StaffController@update');
+        Route::get('/delete', 'StaffController@delete');
     });
 
     // ROTAS DE ANIMAIS

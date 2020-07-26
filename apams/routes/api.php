@@ -7,19 +7,20 @@
 use Illuminate\Http\Request;
 
 # ROTA PARA REGISTRO DE USUÁRIO
-Route::post('/register', 'Auth\RegisterController@registerApi'); //Cadastrar Usuário
+Route::post('/register', 'API\UserController@register'); 
 
 # ROTA PARA LOGIN DE USUÁRIO
-Route::post('/login','Auth\LoginController@loginapi');
+Route::post('/login','API\UserController@login');
 
 # ROTAS COM MIDDLEWARE AUTH, OU SEJA, ACESSIVEIS SOMENTE COM AUTENTICAÇÃO
 Route::group(['middleware' => 'auth:api'], function(){
     
     //ROTAS PARA USUÁRIO
     Route::prefix('/user')->group(function(){
-        Route::get('/profile','UserController@showProfile');
+        Route::get('/profile','API\UserController@showProfile');
+        Route::post('/update', 'API\UserController@updateUser');
+        Route::get('/logout', 'API\UserController@logout');
     });
-        Route::post('/update', 'UserController@updateUser');
 
     //ROTAS PARA ANIMAIS
     Route::prefix('/animals')->group(function(){
@@ -37,6 +38,11 @@ Route::group(['middleware' => 'auth:api'], function(){
         Route::get('/{id}/unlike','API\PostController@unlikePost');
         Route::get('/{id}/comments','API\CommentsController@show');
         Route::post('/{id}/comments/message','API\CommentsController@message');
+    });
+
+    Route::prefix('/about')->group(function(){
+        Route::get('/','API\AboutController@about');
+        Route::get('/sponsors','API\AboutController@sponsors');
     });
 
 });

@@ -38,13 +38,18 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
+            'provider' => 'staff',
+        ],
+
+        'apilogin' => [
+            'driver' => 'session',
             'provider' => 'users',
         ],
 
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
-        ],
+        ]
     ],
 
     /*
@@ -65,15 +70,14 @@ return [
     */
 
     'providers' => [
+        'staff' => [
+            'driver' => 'eloquent',
+            'model' => ApamsServer\Staff::class,
+        ],
         'users' => [
             'driver' => 'eloquent',
             'model' => ApamsServer\User::class,
-        ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        ]
     ],
 
     /*

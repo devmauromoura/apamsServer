@@ -17,7 +17,7 @@ class checkUser
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->activeAccount == 1){
+        if (Auth::user()->active == 1){
             return $next($request);
         }else {
             return redirect('/home')->with('msg', 'Seu cadastro não está ativo,  contate um administrador!');

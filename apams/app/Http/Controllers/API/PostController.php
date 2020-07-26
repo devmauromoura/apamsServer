@@ -14,9 +14,10 @@ class PostController extends Controller
 {
 
     public function show(){
-        $Posts = Post::select('post.id', 'post.title', 'post.description', 'post.created_at', 'post.image', DB::raw('count(like_post.post_id) as likes'))
+        $Posts = Post::select('post.id', 'post.title', 'post.description', 'post.created_at', 'post.image', DB::raw('count(like_post.post_id) as likes'), 'staff.name', 'staff.avatar')
+                        ->leftJoin('staff', 'post.user_id', '=', 'staff.id')
                         ->leftJoin('like_post', 'post.id', '=', 'like_post.post_id')
-                        ->groupBy('post.id', 'post.title', 'post.description', 'post.created_at', 'post.image', 'like_post.post_id')
+                        ->groupBy('post.id', 'post.title', 'post.description', 'post.created_at', 'post.image', 'like_post.post_id', 'staff.name', 'staff.avatar')
                         ->get();
                         
         $user = Auth::user()->id;

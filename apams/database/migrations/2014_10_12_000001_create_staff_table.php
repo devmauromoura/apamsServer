@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use ApamsServer\User;
 
-class CreateUsersTable extends Migration
+class CreateStaffTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,18 +13,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('staff', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password')->nullable();
-            $table->string('access_token')->nullable();
-            $table->string('refresh_token')->nullable();
-            $table->unsignedInteger('expires_in')->nullable();
-            $table->rememberToken();
-            $table->string('cellphone')->nullable();
             $table->string('avatar')->nullable();
-            $table->boolean('active')->default(0); 
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -37,6 +31,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('staff');
     }
 }

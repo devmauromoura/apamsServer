@@ -10,11 +10,34 @@ use Illuminate\Support\Facades\Mail;
 use ApamsServer\Mail\SolicitacaoAdocao;
 use ApamsServer\Settings;
 use Auth;
+use DB;
 
 class AnimalsController extends Controller
 {
-    public function show(){
-        $Animals = Animals::all();
+    public function show(Request $request){
+        $params = $request->all();
+    
+        $Animals;
+        if(count($params) == 0){
+            $Animals = Animals::all();
+        }else{
+            $query = "";
+            if(isset($params['name'])){
+                $query .= "name LIKE '%".$params['name']."%' and ";
+            }
+            if(isset($params['type'])){
+                $query .= "type = '".$params['type']."' and ";
+            }
+            if(isset($params['size'])){
+                $query .= "size = '".$params['size']."' and ";
+            }
+            if(isset($params['sex'])){
+                $query .= "sex = '".$params['sex']."' and ";
+            }
+        
+            $query = substr($query, 0, -5); // remove o ultimo 'and'
+            $Animals = DB::select(DB::raw('select * from apams.animals where '.$query));
+        }
 
         return response()->json([
             "message" => "Sucesso.",

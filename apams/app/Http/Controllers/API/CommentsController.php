@@ -21,7 +21,7 @@ class CommentsController extends Controller
                 'post_comments.created_at',
                 'post_comments.updated_at',
                 'users.name',
-                'users.avatarUrl',
+                'users.avatar',
                 ])
             ->leftJoin('users', 'post_comments.user_id', '=', 'users.id')
             ->where('post_comments.post_id', $idpost)->get();
