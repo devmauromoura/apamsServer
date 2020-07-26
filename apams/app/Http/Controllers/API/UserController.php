@@ -61,10 +61,21 @@ class UserController extends Controller
     protected function updateUser(Request $request){
         $newData = $request->all();
         $updateUser = User::find(Auth::user()->id);
-        $updateUser->name = $request['name'];
-        $updateUser->email = $request['email'];
-        $updateUser->password = Hash::make($request['password']);
-        $updateUser->cellphone = $request['cellphone'];
+
+        if(isset( $request['name'])){
+            $updateUser->name = $request['name'];
+        }
+        if(isset($request['email'])){
+            $updateUser->email = $request['email'];
+        }
+        if(isset($request['password'])){
+            $updateUser->password = Hash::make($request['password']);
+        }
+        if(isset($request['cellphone'])){
+            $updateUser->cellphone = $request['cellphone'];
+        }
+       
+        
         // criar processo para imagem  $request['avatarb64'];
         $updateUser->save();
 
