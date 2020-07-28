@@ -18,6 +18,7 @@ class PostController extends Controller
                         ->leftJoin('staff', 'post.user_id', '=', 'staff.id')
                         ->leftJoin('like_post', 'post.id', '=', 'like_post.post_id')
                         ->groupBy('post.id', 'post.title', 'post.description', 'post.created_at', 'post.image', 'like_post.post_id', 'staff.name', 'staff.avatar')
+                        ->orderBy('post.id', 'desc')
                         ->get();
                         
         $user = Auth::user()->id;

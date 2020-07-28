@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 # ROTA PARA REGISTRO DE USUÁRIO
 Route::post('/register', 'API\UserController@register'); 
+Route::post('/recoverypassword', 'API\UserController@recovery'); 
 
 # ROTA PARA LOGIN DE USUÁRIO
 Route::post('/login','API\UserController@login');

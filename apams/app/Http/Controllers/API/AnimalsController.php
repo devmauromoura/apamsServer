@@ -36,7 +36,7 @@ class AnimalsController extends Controller
             }
         
             $query = substr($query, 0, -5); // remove o ultimo 'and'
-            $Animals = DB::select(DB::raw('select * from apams.animals where '.$query));
+            $Animals = DB::select(DB::raw('select * from apams.animals where '.$query))->orderBy('id', 'desc');
         }
 
         return response()->json([
@@ -80,7 +80,12 @@ class AnimalsController extends Controller
                 "status" => false,
             ], 400);
         }else{
-             //Mail::to($email->adopt_mail)->send(new SolicitacaoAdocao());
+            $data = array(
+                "animal" => $animal,
+                "user" => $user
+            );
+             
+             Mail::to($email->adopt_mail)->send(new SolicitacaoAdocao($data))->subject('Solitação de Adoção!');;
 
             return response()->json([
                 "message" => "Adoção requirida.",
