@@ -120,6 +120,9 @@
 			status: {
 				required: true
 			},
+			historia: {
+				required: true
+			},
 		},
 		messages: {
 			nome: {
@@ -142,6 +145,9 @@
 			},
 			status: {
 				required: "Processo é obrigatório"
+			},
+			historia: {
+				required: "História é obrigatório"
 			},
 		}
 	});

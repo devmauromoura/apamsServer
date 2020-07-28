@@ -88,7 +88,7 @@
 					} 	
 				}
 			],
-			"ordering": false,
+			"order": [[0, 'desc']],
 			"info":     false,
 			"language": {
 				"decimal": "",

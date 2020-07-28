@@ -62,9 +62,10 @@
 		<img src="{{ asset('img/logo.png') }}" alt="APAMS" height="100px">
 		<hr style="margin-top: 1rem;width: 80%;margin-bottom: 1rem;border: 0;border-top: 1px solid rgb(236 239 241);">
 		@if($avatarUserAuth !== null && $avatarUserAuth !== "")
-			<img class="icon-user" src="{{ asset($avatarUserAuth) }}" alt="APAMS" height="100px" style="border-radius: 3rem;">
+      <img class="icon-user" src="{{ asset($avatarUserAuth) }}" alt="APAMS" height="100px" width="100px" style="border-radius: 3rem;">
+      <div></div>
 		@else
-			<img class="icon-user" src="{{ asset('user.png') }}" alt="APAMS" height="100px" style="border-radius: 3rem;">
+			<img class="icon-user" src="{{ asset('user.png') }}" alt="APAMS" height="100px" width="100px" style="border-radius: 3rem;">
 		@endif
 		<h5>Bem vindo,<br> {{$nameUserAuth}}!</h5>
 	</div>
