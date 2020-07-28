@@ -66,6 +66,7 @@
 </div>
 
 <script>
+
 	$(document).ready(function() {
 		$('#listPost').DataTable( {
 			"ajax": "{{ url('/usuarios/dados') }}",
@@ -206,5 +207,7 @@
 
 		return false; 
 	});
+	
 </script>
+
 @endsection

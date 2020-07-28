@@ -29,6 +29,7 @@
 </form>
 
 <script>
+	
 	$("#form_post").validate({
 		rules: {
 			titulo: {
@@ -59,4 +60,5 @@
 		label:'Abrir imagem',
 		maxFiles: 1
 	});
+
 </script>

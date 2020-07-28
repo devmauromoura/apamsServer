@@ -39,8 +39,4 @@
 
 <script>
 
-	console.log(@json($comments))
-
-	console.log(@json($likes))
-
 </script>

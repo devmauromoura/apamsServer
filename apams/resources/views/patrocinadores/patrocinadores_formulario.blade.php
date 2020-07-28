@@ -39,6 +39,7 @@
 </form>
 
 <script>
+
 	$("#form_post").validate({
 		rules: {
 			nome: {
@@ -76,4 +77,5 @@
 		label:'Abrir imagem',
 		maxFiles: 1
 	});
+	
 </script>
