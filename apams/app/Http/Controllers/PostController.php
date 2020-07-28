@@ -7,6 +7,7 @@ use ApamsServer\Post;
 use ApamsServer\Animals;
 use ApamsServer\User;
 use ApamsServer\LikePost;
+use ApamsServer\CommentPost;
 use Auth;
 use View;
 use DB;
@@ -44,7 +45,20 @@ class PostController extends Controller
 
     public function infoPost($id)
     {
-        return view('posts/posts_info_formulario');
+        $likes = LikePost::where("post_id","=",$id)->get();
+        $comments = DB::table('post_comments')->select([
+                                                    'post_comments.id', 
+                                                    'post_comments.user_id',
+                                                    'post_comments.comment',
+                                                    'post_comments.created_at',
+                                                    'post_comments.updated_at',
+                                                    'users.name',
+                                                    'users.avatar',
+                                                    ])
+                                             ->leftJoin('users', 'post_comments.user_id', '=', 'users.id')
+                                             ->where('post_comments.post_id', $id)->get();
+     
+        return view('posts/posts_info_formulario')->with('comments',$comments)->with('likes',count($likes))->with('ncomments',count($comments));
     }
 
     public function formulario($id=null)

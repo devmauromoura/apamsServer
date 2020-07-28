@@ -23,4 +23,5 @@ class checkUser
             return redirect('/home')->with('msg', 'Seu cadastro não está ativo,  contate um administrador!');
         }
     }
+
 }

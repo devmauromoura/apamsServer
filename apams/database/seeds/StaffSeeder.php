@@ -18,7 +18,7 @@ class StaffSeeder extends Seeder
             'email' => 'web@altatecnologia.com.br',
             'password' => Hash::make('102030'),
             'avatar' => '',
-            'permissoes' => json_encode([])
+            'permissoes' => json_encode(["postV","postC","postE","postR","animalV","animalC","animalE","animalR","userV","userC","userE","userR","patrocinadorV","patrocinadorC","patrocinadorE","patrocinadorR","configuracaoE"])
         ]);
     }
 }

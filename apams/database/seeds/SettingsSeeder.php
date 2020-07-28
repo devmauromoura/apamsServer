@@ -13,7 +13,7 @@ class SettingsSeeder extends Seeder
     public function run()
     {
         Settings::create([
-            'adopt_mail' => 'devmauromoura@gmail.com',
+            'adopt_mail' => 'administrativo@apams.com.br',
             'maintenance' => false,
             'title' => 'Histório Apams',
             'description' => 'Lorem Ipsum da história!'

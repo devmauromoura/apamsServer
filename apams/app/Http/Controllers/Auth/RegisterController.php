@@ -15,17 +15,12 @@ use Illuminate\Support\Facades\View;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
 
+    use RegistersUsers;
     protected $redirectTo = '/home';
 
-
-    public function __construct()
+    public function register(Request $request)
     {
-        //$this->middleware('guest');
-    }
-
-    public function register(Request $request){
         $data = $request->all();
         $method = $request->method();
 
@@ -62,4 +57,5 @@ class RegisterController extends Controller
             return "Method invalido!";
         }
     }
+
 }

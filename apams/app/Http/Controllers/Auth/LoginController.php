@@ -14,20 +14,14 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
 
-    public function __construct()
-    {
-        //        $this->middleware('guest')->except('logout');
-    }
-
     public function sair()
     {
         auth()->logout();
-
         return redirect('/');
     }
 
-
-    public function index(){
+    public function index()
+    {
         if(Auth::check()){
             return redirect('home');
         }else{
@@ -35,12 +29,13 @@ class LoginController extends Controller
         }
     }
 
-    protected function login(Request $request){
-                
-                if(Auth::guard('web')->attempt(['email' => $request['email'], 'password' => $request['password']])){
-                    return redirect('home');
-                }else{
-                   return redirect('/')->with('error', 'Verifique suas credenciais!');
-                    }
+    protected function login(Request $request)
+    {
+        if(Auth::guard('web')->attempt(['email' => $request['email'], 'password' => $request['password']])){
+            return redirect('home');
+        }else{
+            return redirect('/')->with('error', 'Verifique suas credenciais!');
+        }
     }
+    
 }

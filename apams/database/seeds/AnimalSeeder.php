@@ -48,36 +48,5 @@ class AnimalSeeder extends Seeder
                 'age' => 10
             ]
         ]);
-
-        AnimalsGallery::insert([
-            [
-                'image_url' => '',
-                'animal_id' => 1
-            ],
-            [
-                'image_url' => '',
-                'animal_id' => 1
-            ],
-            [
-                'image_url' => '',
-                'animal_id' => 1
-            ],
-            [
-                'image_url' => '',
-                'animal_id' => 2
-            ],
-            [
-                'image_url' => '',
-                'animal_id' => 2
-            ],
-            [
-                'image_url' => '',
-                'animal_id' => 3
-            ],
-            [
-                'image_url' => '',
-                'animal_id' => 3
-            ],
-        ]);
     }
 }

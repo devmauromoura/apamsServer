@@ -13,7 +13,7 @@ class SponsorSeeder extends Seeder
     public function run()
     {
         Sponsors::create([
-            'name' => 'Patrocionador 1',
+            'name' => 'Patrocinador',
             'email' => 'email@email.com',
             'cellphone' => '00000000000',
             'description' => 'descrição',
