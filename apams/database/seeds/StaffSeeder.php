@@ -20,5 +20,12 @@ class StaffSeeder extends Seeder
             'avatar' => '',
             'permissoes' => json_encode(["postV","postC","postE","postR","animalV","animalC","animalE","animalR","userV","userC","userE","userR","patrocinadorV","patrocinadorC","patrocinadorE","patrocinadorR","configuracaoE"])
         ]);
+        Staff::create([
+            'name' => 'Apams',
+            'email' => 'admin@apams.com.br',
+            'password' => Hash::make('123456'),
+            'avatar' => '',
+            'permissoes' => json_encode(["postV","postC","postE","postR","animalV","animalC","animalE","animalR","userV","userC","userE","userR","patrocinadorV","patrocinadorC","patrocinadorE","patrocinadorR","configuracaoE"])
+        ]);
     }
 }
