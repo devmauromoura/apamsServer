@@ -57,7 +57,7 @@ class AnimalsController extends Controller
     }
 
     public function gallery($id){
-        $Gallery = AnimalsGallery::where('animal_id', $id)->get(['id', 'image_url', 'description', 'created_at']);
+        $Gallery = AnimalsGallery::where('animal_id', $id)->get(['id', 'image_url', 'created_at']);
 
         return response()->json([
             "message" => "Sucesso.",
