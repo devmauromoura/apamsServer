@@ -58,7 +58,7 @@ class PostController extends Controller
                                              ->leftJoin('users', 'post_comments.user_id', '=', 'users.id')
                                              ->where('post_comments.post_id', $id)->get();
      
-        return view('posts/posts_info_formulario')->with('comments',$comments)->with('likes',count($likes))->with('ncomments',count($comments));
+        return view('posts/posts_info_formulario')->with('comments',array_reverse($comments))->with('likes',count($likes))->with('ncomments',count($comments));
     }
 
     public function formulario($id=null)
