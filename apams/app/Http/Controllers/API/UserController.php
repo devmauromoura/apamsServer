@@ -112,7 +112,7 @@ class UserController extends Controller
         if(isset($request['avatar'])){
             $data_avatar = $request['avatar']; 
             $type = explode('/', $data_avatar['fileType']);
-            Storage::disk('local')->put("/users_avatar/{$data_avatar['fileName']}", base64_decode($data_avatar['base64']));
+            Storage::disk('local')->put("public/users_avatar/{$data_avatar['fileName']}", base64_decode($data_avatar['base64']));
             $updateUser->avatar = "public/storage/users_avatar/".$data_avatar['fileName'];
         }
 
