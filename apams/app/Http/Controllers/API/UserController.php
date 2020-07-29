@@ -35,7 +35,6 @@ class UserController extends Controller
             "status" => true
         ], 200);
         } catch (\Throwable $th) {
-            dd($th);
             return response()->json([
                 "message" => 'Ocorreu algum problema.',
                 "status" => false
@@ -110,16 +109,12 @@ class UserController extends Controller
         if(isset($request['newpassword'])){
             $updateUser->password = Hash::make($request['newpassword']);
         }
-        // if(isset($request['avatar'])){
-        //     $base64_image = $request['avatar'];      
-        //     @list($type, $file_data) = explode(';', $base64_image);
-        //     @list(, $file_data) = explode(',', $file_data);
-        //     $extavatar = $request['images_avatar']->extension(); 
-        //     $dataavatar = date('d-m-Y_H-i-s');
-        //     $nomeavatar = str_random(10);
-        //     $nomeimgavatar = "avatar_{$nomeavatar}_{$dataavatar}.{$extavatar}";
-        //     Storage::disk('users_avatar')->put($nomeimgavatar, base64_decode($file_data));
-        // }
+        if(isset($request['avatar'])){
+            $data_avatar = $request['avatar']; 
+            $type = explode('/', $data_avatar['fileType']);
+            Storage::disk('local')->put("/users_avatar/{$data_avatar['fileName']}", base64_decode($data_avatar['base64']));
+            $updateUser->avatar = Storage::path("/users_avatar/{$data_avatar['fileName']}");
+        }
 
         // criar processo para imagem  $request['avatarb64'];
         $updateUser->save();
