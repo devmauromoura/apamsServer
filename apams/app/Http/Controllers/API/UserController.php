@@ -113,7 +113,7 @@ class UserController extends Controller
             $data_avatar = $request['avatar']; 
             $type = explode('/', $data_avatar['fileType']);
             Storage::disk('local')->put("public/users_avatar/{$data_avatar['fileName']}", base64_decode($data_avatar['base64']));
-            $updateUser->avatar = "public/storage/users_avatar/".$data_avatar['fileName'];
+            $updateUser->avatar = "storage/users_avatar/".$data_avatar['fileName'];
         }
 
         // criar processo para imagem  $request['avatarb64'];
