@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SolicitacaoAdocao extends Mailable
+class RecoveryPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,9 @@ class SolicitacaoAdocao extends Mailable
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($recoveryData)
     {
-        $this->data = $data;
+        $this->recoveryData = $recoveryData;
     }
 
     /**
@@ -28,6 +28,6 @@ class SolicitacaoAdocao extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.solicitacaoadocao')->with(['data' => $this->data]);
+        return $this->view('emails.recovery')->with(['data' => $this->recoveryData]);
     }
 }

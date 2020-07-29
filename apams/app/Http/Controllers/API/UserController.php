@@ -8,10 +8,42 @@ use ApamsServer\User;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use ApamsServer\Mail\cadastroApi;
+use ApamsServer\Mail\RecoveryPassword;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
 
 class UserController extends Controller
 {
+    //RECUPERAÇÃO DE SENHA MOBILE
+    public function recovery(Request $request){
+        $user = User::where('email', $request['email'])->first();
+        $random = Str::random(8);
+        $update = User::find($user->id);
+        $update->password = Hash::make($random);
+        try {
+            $update->save();
+            $recoveryData = array(
+                "name" => $user->name,
+                "newpassword" => $random
+            );
+           Mail::to($user->email)->send(new RecoveryPassword($recoveryData));
+
+           return response()->json([
+            "message" => "Redefinição realizada.",
+            "status" => true
+        ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "message" => 'Ocorreu algum problema.',
+                "status" => false
+            ], 400);
+        }
+
+        return $data;
+    }
+
     //CADASTRO MOBILE
     protected function register(Request $request)
     {
@@ -74,8 +106,16 @@ class UserController extends Controller
         if(isset($request['cellphone'])){
             $updateUser->cellphone = $request['cellphone'];
         }
-       
-        
+        if(isset($request['newpassword'])){
+            $updateUser->password = Hash::make($request['newpassword']);
+        }
+        if(isset($request['avatar'])){
+            $data_avatar = $request['avatar']; 
+            $type = explode('/', $data_avatar['fileType']);
+            Storage::disk('local')->put("public/users_avatar/{$data_avatar['fileName']}", base64_decode($data_avatar['base64']));
+            $updateUser->avatar = "storage/users_avatar/".$data_avatar['fileName'];
+        }
+
         // criar processo para imagem  $request['avatarb64'];
         $updateUser->save();
 

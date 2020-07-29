@@ -24,7 +24,9 @@ class CommentsController extends Controller
                 'users.avatar',
                 ])
             ->leftJoin('users', 'post_comments.user_id', '=', 'users.id')
-            ->where('post_comments.post_id', $idpost)->get();
+            ->where('post_comments.post_id', $idpost)
+            ->orderBy('post_comments.id', 'desc')
+            ->get();
 
         return response()->json([
             "message" => "Sucesso",
