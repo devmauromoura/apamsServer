@@ -16,26 +16,26 @@ class StaffController extends Controller
     public function recovery(Request $request, $email){
         $user = Staff::where('email', $email)->first();
         $random = Str::random(8);
-        $update = Staff::find($user->id);
+        $update = Staff::find($user['id']);
         $update->password = Hash::make($random);
-        // try {
+        try {
             $update->save();
             $recoveryData = array(
                 "name" => $user->name,
                 "newpassword" => $random
             );
-           Mail::to("gabrielomarcato@gmail.com")->send(new RecoveryStaff($recoveryData));
+           Mail::to($email)->send(new RecoveryStaff($recoveryData));
 
            return response()->json([
-            "message" => "Redefinição realizada.",
-            "status" => true
-        ], 200);
-        // } catch (\Throwable $th) {
-        //     return response()->json([
-        //         "message" => 'Ocorreu algum problema.',
-        //         "status" => false
-        //     ], 400);
-        // }
+                "message" => "Redefinição realizada.",
+                "status" => true
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "message" => 'Ocorreu algum problema.',
+                "status" => false
+            ], 400);
+        }
 
         return $data;
     }

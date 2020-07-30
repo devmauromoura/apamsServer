@@ -19,6 +19,31 @@
 
 <body>
 
+    <div class="modal fade" id="recuperarsenhamodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Recuperar senha</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Insira o e-mail para recuperar sua senha.</label>
+                    <input type="email" class="form-control" name="email_recuperar" id="email_recuperar" placeholder="E-mail">
+                    <small class="alert-danger" style="display:none;">Desculpe, ocorreu um erro ao solicitar a recuperação de senha.</small>
+                    <small class="alert-success" style="display:none;">E-mail de recuperação enviado com sucesso.</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary btn-submit-recuperarsenha" style="background-color: #f93;color: #FFF;border-color:#f93;">Enviar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 
     <main>
 
@@ -61,14 +86,29 @@
     </main>
 
     <script>
+
         $('.btn-recuperar-senha').on('click', function(){
+            $('#recuperarsenhamodal').modal('show')
+        })
+
+        $('.btn-submit-recuperarsenha').on('click', function(){
+            $('.btn-submit-recuperarsenha').prop('disabled', true);
+            let email = $('#email_recuperar').val();
             var settings = {
-                "url": "{{ url('/recuperarsenha') }}/web@altatecnologia.com.br",
+                "url": `{{ url('/recuperarsenha') }}/${email}`,
                 "method": "GET"
             };
 
             $.ajax(settings).done(function (response) {
-                console.log(response);
+                if(response.status == true){
+                    $('.alert-success').css('display','block');
+                    $('.alert-danger').css('display','none');
+                    $('.btn-submit-recuperarsenha').prop('disabled', false);
+                } else {
+                    $('.alert-danger').css('display','block');
+                    $('.alert-success').css('display','none');
+                    $('.btn-submit-recuperarsenha').prop('disabled', false);
+                }
             });
         })
         
