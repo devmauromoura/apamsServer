@@ -19,7 +19,7 @@ class AnimalsController extends Controller
     
         $Animals;
         if(count($params) == 0){
-            $Animals = Animals::all();
+            $Animals = Animals::orderBy('id', 'desc')->get();
         }else{
             $query = "";
             if(isset($params['name'])){
@@ -36,7 +36,7 @@ class AnimalsController extends Controller
             }
         
             $query = substr($query, 0, -5); // remove o ultimo 'and'
-            $Animals = DB::select(DB::raw('select * from apams.animals where '.$query))->orderBy('id', 'desc');
+            $Animals = DB::select(DB::raw('select * from apams.animals where '.$query));
         }
 
         return response()->json([
