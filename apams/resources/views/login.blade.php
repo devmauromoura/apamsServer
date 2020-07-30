@@ -52,6 +52,7 @@
                     <label>Senha</label>
                     <input type="password" class="form-control" name="password" placeholder="Senha">
                 </div>
+                <small class="btn-recuperar-senha">Recuperar senha</small>
                 <button type="submit" class="btn btn-block">Entrar</button>
             </form>
 
@@ -59,6 +60,20 @@
 
     </main>
 
+    <script>
+        $('.btn-recuperar-senha').on('click', function(){
+            var settings = {
+                "url": "{{ url('/recuperarsenha') }}/web@altatecnologia.com.br",
+                "method": "GET"
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
+        })
+        
+    </script>
 </body>
+
 
 </html>

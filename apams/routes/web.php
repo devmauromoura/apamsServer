@@ -11,6 +11,7 @@
 
 # ROTA PARA TELA DE LOGIN
     Route::get('/','Auth\LoginController@index')->name('index');
+    Route::get('/recuperarsenha/{email}','StaffController@recovery');
 # ROTA PARA TELA DE LOGIN
 
 # ROTAS PARA VALIDAR LOGIN E SAIR
