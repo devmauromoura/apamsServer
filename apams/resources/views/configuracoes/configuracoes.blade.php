@@ -62,6 +62,30 @@
 </div>
 
 <script>
-	
+		$("#form_post_settings").validate({
+			rules: {
+				email: {
+					required: true,
+					email: true
+				},
+				titulo: {
+					required: true
+				},
+				descricao: {
+					required: true
+				}
+			},
+			messages: {
+				email: {
+					required: "E-mail obrigatório",
+				},
+				titulo: {
+					required: "Titulo obrigatório",
+				},
+				descricao: {
+					required: "Descrição obrigatório",
+				}
+			}
+		});
 </script>
 @endsection

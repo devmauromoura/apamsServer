@@ -32,17 +32,32 @@ class SettingsController extends Controller
 
     public function salvar(Request $request)
     {
-        try {
-            $settings = new Settings;
-            $settings = $settings::find(1);
-    
-            $settings->adopt_mail = $request['email'];
-            $settings->title = $request['titulo'];
-            $settings->description = $request['descricao'];
-    
-            $settings->save();
-        } catch (\Throwable $th) {
-            return redirect('configuracoes')->with('danger', 'Erro ao salvar as configurações!');
+        $sett = Settings::all();
+        
+        if(count($sett) > 0){
+            try {
+                $settings = new Settings;
+                $settings = $settings::find(1);
+        
+                $settings->adopt_mail = $request['email'];
+                $settings->title = $request['titulo'];
+                $settings->description = $request['descricao'];
+        
+                $settings->save();
+            } catch (\Throwable $th) {
+                return redirect('configuracoes')->with('danger', 'Erro ao salvar as configurações!');
+            }
+        } else {
+            try {
+                $settings = new Settings;
+                $settings->adopt_mail = $request['email'];
+                $settings->title = $request['titulo'];
+                $settings->description = $request['descricao'];
+        
+                $settings->save();
+            } catch (\Throwable $th) {
+                return redirect('configuracoes')->with('danger', 'Erro ao salvar as configurações!');
+            }
         }
 
         return redirect('configuracoes')->with('success', 'Configurações salvas com sucesso!');

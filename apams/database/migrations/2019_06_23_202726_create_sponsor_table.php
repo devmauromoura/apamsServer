@@ -18,7 +18,7 @@ class CreateSponsorTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('cellphone');
-            $table->string('description');
+            $table->longText('description');
             $table->string('avatar')->nullable();      
             $table->timestamps();
         });

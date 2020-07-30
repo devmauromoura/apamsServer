@@ -18,7 +18,7 @@ class CreateSettingsTable extends Migration
             $table->string('adopt_mail');
             $table->boolean('maintenance')->default(false);
             $table->string('title');
-            $table->string('description');
+            $table->longText('description');
             $table->timestamps();
         });
     }
